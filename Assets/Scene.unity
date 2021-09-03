@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 55698921}
   - component: {fileID: 55698920}
   - component: {fileID: 55698919}
+  - component: {fileID: 55698924}
   m_Layer: 0
   m_Name: Cube (27)
   m_TagString: Untagged
@@ -260,15 +261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 55698917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &55698920
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,6 +342,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55698917}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &55698924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55698917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &65375915
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +368,7 @@ GameObject:
   - component: {fileID: 65375919}
   - component: {fileID: 65375918}
   - component: {fileID: 65375917}
+  - component: {fileID: 65375922}
   m_Layer: 0
   m_Name: Cube (26)
   m_TagString: Untagged
@@ -391,15 +399,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 65375915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &65375918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -478,6 +480,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65375915}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &65375922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65375915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &92789803
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,6 +606,7 @@ GameObject:
   - component: {fileID: 123033554}
   - component: {fileID: 123033553}
   - component: {fileID: 123033552}
+  - component: {fileID: 123033557}
   m_Layer: 0
   m_Name: Cube (25)
   m_TagString: Untagged
@@ -622,15 +637,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 123033550}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &123033553
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -709,6 +718,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123033550}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &123033557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123033550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &151688973
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +744,7 @@ GameObject:
   - component: {fileID: 151688977}
   - component: {fileID: 151688976}
   - component: {fileID: 151688975}
+  - component: {fileID: 151688980}
   m_Layer: 0
   m_Name: Cube (38)
   m_TagString: Untagged
@@ -753,15 +775,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 151688973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &151688976
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -840,6 +856,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151688973}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &151688980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151688973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &251265914
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +918,7 @@ GameObject:
   - component: {fileID: 257053757}
   - component: {fileID: 257053756}
   - component: {fileID: 257053755}
+  - component: {fileID: 257053760}
   m_Layer: 0
   m_Name: Cube (37)
   m_TagString: Untagged
@@ -920,15 +949,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 257053753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &257053756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1007,6 +1030,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257053753}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &257053760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257053753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &282174940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1101,7 @@ GameObject:
   - component: {fileID: 401276422}
   - component: {fileID: 401276421}
   - component: {fileID: 401276420}
+  - component: {fileID: 401276426}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1082,15 +1118,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 401276419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &401276421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1183,6 +1213,18 @@ Transform:
   m_Father: {fileID: 588640674}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &401276426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401276419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &447232899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,6 +1239,7 @@ GameObject:
   - component: {fileID: 447232903}
   - component: {fileID: 447232902}
   - component: {fileID: 447232901}
+  - component: {fileID: 447232906}
   m_Layer: 0
   m_Name: Cube (33)
   m_TagString: Untagged
@@ -1227,15 +1270,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 447232899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &447232902
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1314,6 +1351,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447232899}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &447232906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447232899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &588640673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,6 +1429,7 @@ GameObject:
   - component: {fileID: 634934099}
   - component: {fileID: 634934098}
   - component: {fileID: 634934097}
+  - component: {fileID: 634934102}
   m_Layer: 0
   m_Name: Cube (21)
   m_TagString: Untagged
@@ -1410,15 +1460,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 634934095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &634934098
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1497,6 +1541,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634934095}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &634934102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634934095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &816193608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1642,7 @@ GameObject:
   - component: {fileID: 848765858}
   - component: {fileID: 848765857}
   - component: {fileID: 848765856}
+  - component: {fileID: 848765861}
   m_Layer: 0
   m_Name: Cube (32)
   m_TagString: Untagged
@@ -1616,15 +1673,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 848765854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &848765857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1703,6 +1754,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848765854}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &848765861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848765854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &954598148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,6 +1846,7 @@ GameObject:
   - component: {fileID: 1042601555}
   - component: {fileID: 1042601554}
   - component: {fileID: 1042601553}
+  - component: {fileID: 1042601558}
   m_Layer: 0
   m_Name: Cube (22)
   m_TagString: Untagged
@@ -1813,15 +1877,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1042601551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1042601554
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1900,6 +1958,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042601551}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1042601558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042601551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1073754654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2125,7 @@ GameObject:
   - component: {fileID: 1126696834}
   - component: {fileID: 1126696833}
   - component: {fileID: 1126696832}
+  - component: {fileID: 1126696837}
   m_Layer: 0
   m_Name: Cube (29)
   m_TagString: Untagged
@@ -2085,15 +2156,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1126696830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1126696833
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2172,6 +2237,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126696830}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1126696837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126696830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1242184581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2263,7 @@ GameObject:
   - component: {fileID: 1242184585}
   - component: {fileID: 1242184584}
   - component: {fileID: 1242184583}
+  - component: {fileID: 1242184588}
   m_Layer: 0
   m_Name: Cube (28)
   m_TagString: Untagged
@@ -2216,15 +2294,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242184581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1242184584
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2303,6 +2375,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242184581}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1242184588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242184581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1280860671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,6 +2496,7 @@ GameObject:
   - component: {fileID: 1363582272}
   - component: {fileID: 1363582271}
   - component: {fileID: 1363582270}
+  - component: {fileID: 1363582275}
   m_Layer: 0
   m_Name: Cube (39)
   m_TagString: Untagged
@@ -2442,15 +2527,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1363582268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1363582271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2529,6 +2608,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363582268}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1363582275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363582268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1401012618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,6 +2634,7 @@ GameObject:
   - component: {fileID: 1401012622}
   - component: {fileID: 1401012621}
   - component: {fileID: 1401012620}
+  - component: {fileID: 1401012625}
   m_Layer: 0
   m_Name: Cube (35)
   m_TagString: Untagged
@@ -2573,15 +2665,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1401012618}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1401012621
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2660,6 +2746,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401012618}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1401012625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401012618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1463712122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2790,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1558612755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558612756}
+  - component: {fileID: 1558612757}
+  m_Layer: 0
+  m_Name: Sandbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1558612756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558612755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1558612757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558612755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab60f7480b7ad945805b13797fd7b3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 11500000, guid: d26ceb3584f814243b08fe3e1a2afbc2, type: 3}
 --- !u!1 &1619044762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,6 +2848,7 @@ GameObject:
   - component: {fileID: 1619044766}
   - component: {fileID: 1619044765}
   - component: {fileID: 1619044764}
+  - component: {fileID: 1619044769}
   m_Layer: 0
   m_Name: Cube (36)
   m_TagString: Untagged
@@ -2736,15 +2879,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1619044762}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1619044765
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2823,6 +2960,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619044762}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1619044769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619044762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1655665834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,6 +2986,7 @@ GameObject:
   - component: {fileID: 1655665838}
   - component: {fileID: 1655665837}
   - component: {fileID: 1655665836}
+  - component: {fileID: 1655665841}
   m_Layer: 0
   m_Name: Cube (30)
   m_TagString: Untagged
@@ -2867,15 +3017,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1655665834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1655665837
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2954,6 +3098,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655665834}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1655665841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655665834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1671560990
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,6 +3124,7 @@ GameObject:
   - component: {fileID: 1671560992}
   - component: {fileID: 1671560996}
   - component: {fileID: 1671560995}
+  - component: {fileID: 1671560997}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -3060,15 +3217,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1671560990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1671560996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3085,6 +3236,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1671560997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671560990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1678729405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,6 +3351,7 @@ GameObject:
   - component: {fileID: 1797279568}
   - component: {fileID: 1797279567}
   - component: {fileID: 1797279566}
+  - component: {fileID: 1797279571}
   m_Layer: 0
   m_Name: Cube (23)
   m_TagString: Untagged
@@ -3218,15 +3382,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1797279564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1797279567
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3305,6 +3463,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797279564}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1797279571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797279564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1874685982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,6 +3489,7 @@ GameObject:
   - component: {fileID: 1874685986}
   - component: {fileID: 1874685985}
   - component: {fileID: 1874685984}
+  - component: {fileID: 1874685989}
   m_Layer: 0
   m_Name: Cube (31)
   m_TagString: Untagged
@@ -3349,15 +3520,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1874685982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1874685985
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3436,6 +3601,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874685982}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1874685989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874685982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1918467029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,6 +3627,7 @@ GameObject:
   - component: {fileID: 1918467033}
   - component: {fileID: 1918467032}
   - component: {fileID: 1918467031}
+  - component: {fileID: 1918467036}
   m_Layer: 0
   m_Name: Cube (24)
   m_TagString: Untagged
@@ -3480,15 +3658,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1918467029}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1918467032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3567,6 +3739,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918467029}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1918467036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918467029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1935400901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,6 +3765,7 @@ GameObject:
   - component: {fileID: 1935400905}
   - component: {fileID: 1935400904}
   - component: {fileID: 1935400903}
+  - component: {fileID: 1935400908}
   m_Layer: 0
   m_Name: Cube (40)
   m_TagString: Untagged
@@ -3611,15 +3796,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1935400901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1935400904
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3698,6 +3877,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935400901}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1935400908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935400901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1947977377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3712,6 +3903,7 @@ GameObject:
   - component: {fileID: 1947977381}
   - component: {fileID: 1947977380}
   - component: {fileID: 1947977379}
+  - component: {fileID: 1947977384}
   m_Layer: 0
   m_Name: Cube (34)
   m_TagString: Untagged
@@ -3742,15 +3934,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1947977377}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05844774f917cee468e06630a5303eda, type: 3}
+  m_Script: {fileID: 11500000, guid: bcf3c16de0356af4abfa2a87ca4f5235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reference:
-    id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RigidbodyTimeRecorder, ns: Default, asm: Assembly-CSharp}
 --- !u!54 &1947977380
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3829,6 +4015,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947977377}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1947977384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947977377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c748beba0e272554889cef3ac8f2b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1977259530
 GameObject:
   m_ObjectHideFlags: 0

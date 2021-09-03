@@ -20,7 +20,6 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    [TimeRecorderMenu("Transform")]
     public class TransformTimeRecorder : TimeStateRecorder<TransformTimeState>
 	{
         public Transform Target => Behaviour.Self.transform;

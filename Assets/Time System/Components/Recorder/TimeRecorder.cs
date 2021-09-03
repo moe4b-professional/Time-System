@@ -47,8 +47,7 @@ namespace Default
             TimeSystem.OnPause += Pause;
             TimeSystem.OnResume += Resume;
 
-            TimeSystem.Playback.OnRewind += Rewind;
-            TimeSystem.Playback.OnForward += Forward;
+            TimeSystem.Playback.OnSeek += Seek;
 
             TimeSystem.Frame.OnRemove += RemoveFrame;
         }
@@ -67,8 +66,7 @@ namespace Default
             
         }
 
-        protected virtual void Rewind(int frame) => ApplyFrame(frame);
-        protected virtual void Forward(int frame) => ApplyFrame(frame);
+        void Seek(int frame) => ApplyFrame(frame);
 
         protected virtual void ApplyFrame(int frame)
         {
@@ -87,8 +85,7 @@ namespace Default
             TimeSystem.OnPause -= Pause;
             TimeSystem.OnResume -= Resume;
 
-            TimeSystem.Playback.OnRewind -= Rewind;
-            TimeSystem.Playback.OnForward -= Forward;
+            TimeSystem.Playback.OnSeek -= Seek;
 
             TimeSystem.Frame.OnRemove -= RemoveFrame;
         }
@@ -107,27 +104,15 @@ namespace Default
         public static void LoadAll(ITimeRecorderBehaviour behaviour, IList<TimeRecorder> recorders)
         {
             for (int i = 0; i < recorders.Count; i++)
-                recorders[i].Load(behaviour);
+                Load(behaviour, recorders[i]);
         }
-    }
-    public interface ITimeRecorderBehaviour
-    {
-        public MonoBehaviour Self { get; }
 
-        public event Action DestroyEvent;
-    }
-
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    sealed class TimeRecorderMenuAttribute : Attribute
-    {
-        public string Path { get; }
-
-        public TimeRecorderMenuAttribute(string path)
+        public static void Load(ITimeRecorderBehaviour behaviour, TimeRecorder recorder)
         {
-            this.Path = path;
+            recorder.Load(behaviour);
         }
     }
-
+    
     [Serializable]
     public abstract class TimeStateRecorder<TState> : TimeRecorder
         where TState : new()
@@ -235,5 +220,15 @@ namespace Default
                 Queue = new Queue<TState>(TimeSystem.Frame.Capacity);
             }
         }
+    }
+
+    public interface ITimeRecorderBehaviour
+    {
+        public MonoBehaviour Self { get; }
+
+        public event Action DisposeEvent;
+        public void Dispose();
+
+        public event Action DestroyEvent;
     }
 }

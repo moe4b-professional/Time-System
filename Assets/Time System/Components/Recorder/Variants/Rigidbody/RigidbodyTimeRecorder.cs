@@ -20,13 +20,12 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    [TimeRecorderMenu("Physics 2D/Rigidbody")]
-    public class Rigidbody2DTimeRecorder : TimeStateRecorder<Rigidbody2DTimeState>
+    public class RigidbodyTimeRecorder : TimeStateRecorder<RigidbodyTimeState>
     {
-        public Rigidbody2D Target { get; protected set; }
+        public Rigidbody Target { get; protected set; }
         bool isKinematic;
 
-        public override void ReadState(Rigidbody2DTimeState state)
+        public override void ReadState(RigidbodyTimeState state)
         {
             state.Position = Target.position;
             state.Velocity = Target.velocity;
@@ -34,7 +33,7 @@ namespace Default
             state.Rotation = Target.rotation;
             state.AngularVelocity = Target.angularVelocity;
         }
-        public override void ApplyState(Rigidbody2DTimeState state)
+        public override void ApplyState(RigidbodyTimeState state)
         {
             Target.position = state.Position;
             Target.velocity = state.Velocity;
@@ -42,7 +41,7 @@ namespace Default
             Target.rotation = state.Rotation;
             Target.angularVelocity = state.AngularVelocity;
         }
-        public override void CopyState(Rigidbody2DTimeState source, Rigidbody2DTimeState destination)
+        public override void CopyState(RigidbodyTimeState source, RigidbodyTimeState destination)
         {
             destination.Position = source.Position;
             destination.Velocity = source.Velocity;
@@ -55,11 +54,11 @@ namespace Default
         {
             base.Configure();
 
-            Target = Behaviour.Self.GetComponent<Rigidbody2D>();
+            Target = Behaviour.Self.GetComponent<Rigidbody>();
 
-            if(Target == null)
+            if (Target == null)
             {
-                Debug.LogError($"No Rigidbody2D Found on {Behaviour.Self}");
+                Debug.LogError($"No Rigidbody Found on {Behaviour.Self}");
                 return;
             }
         }
@@ -80,15 +79,15 @@ namespace Default
         }
     }
 
-    public class Rigidbody2DTimeState
+    public class RigidbodyTimeState
     {
-        public Vector2 Position;
-        public Vector2 Velocity;
+        public Vector3 Position;
+        public Vector3 Velocity;
 
-        public float Rotation;
-        public float AngularVelocity;
+        public Quaternion Rotation;
+        public Vector3 AngularVelocity;
 
-        public Rigidbody2DTimeState()
+        public RigidbodyTimeState()
         {
 
         }

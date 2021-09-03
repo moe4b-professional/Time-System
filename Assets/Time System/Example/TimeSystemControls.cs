@@ -49,7 +49,7 @@ namespace Default
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if (IsRecording)
                 {
@@ -79,6 +79,16 @@ namespace Default
                 {
                     TimeSystem.Playback.Forward(speedModifier);
                     slider.value = TimeSystem.Frame.Index;
+                }
+            }
+            else
+            {
+                if(Input.GetKeyDown(KeyCode.R))
+                {
+                    var target = MB.QueryComponents.InGlobal<TimeRecorderBehaviour<ObjectLifetimeRecorder>>()
+                        .FirstOrDefault();
+
+                    target?.Dispose();
                 }
             }
         }

@@ -131,80 +131,58 @@ namespace Default
 
 		public static class Playback
         {
-			public static event FrameDelegate OnRewind;
-			public static int Rewind(int steps)
+			public static bool Rewind() => Rewind(1);
+			public static bool Rewind(int steps)
 			{
-				for (int i = 0; i < steps; i++)
-					if (Rewind() == false)
-						return i + 1;
+				var destination = Frame.Index - steps;
 
-				return steps;
-			}
-			public static bool Rewind()
-			{
-				if (IsRecording)
-				{
-					Debug.LogError("Cannot Rewind while Recording");
-					return false;
-				}
-
-				if (Frame.Index <= Frame.Min.Index)
-					return false;
-
-				Frame.Index -= 1;
-
-				OnRewind?.Invoke(Frame.Index);
-				return true;
+				return Seek(destination);
 			}
 
+			public static event FrameDelegate OnSeek;
 			/// <summary>
 			/// Moves the timeline to the current frame
 			/// </summary>
-			/// <param name="frame"></param>
-			public static bool Seek(int frame)
-			{
-				if (frame == Frame.Index)
-					return true;
-
-				if (frame > Frame.Index)
-				{
-					var steps = frame - Frame.Index;
-					return Forward(steps) == steps;
-				}
-
-				if (frame < Frame.Index)
-				{
-					var steps = Frame.Index - frame;
-					return Rewind(steps) == steps;
-				}
-
-				throw new NotImplementedException();
-			}
-
-			public static event FrameDelegate OnForward;
-			public static int Forward(int steps)
-			{
-				for (int i = 0; i < steps; i++)
-					if (Forward() == false)
-						return i + 1;
-
-				return steps;
-			}
-			public static bool Forward()
+			/// <param name="destination"></param>
+			public static bool Seek(int destination)
 			{
 				if (IsRecording)
 				{
-					Debug.LogError("Cannot Forward while Recording");
+					Debug.LogError("Cannot Seek while Recording");
 					return false;
 				}
 
-				if (Frame.Index >= Frame.Max.Index)
-					return false;
+				if (destination == Frame.Index) return true;
 
-				Frame.Index += 1;
+				if (destination > Frame.Max.Index) return false;
+				if (destination < Frame.Min.Index) return false;
 
-				OnForward?.Invoke(Frame.Index);
+				Frame.Index = destination;
+				OnSeek?.Invoke(Frame.Index);
 				return true;
+			}
+
+			public static bool Forward() => Forward(1);
+			public static bool Forward(int steps)
+			{
+				var destination = Frame.Index + steps;
+
+				return Seek(destination);
+			}
+		}
+
+		public static class Objects
+        {
+			static List<ITimeRecorderBehaviour> ComponentCache = new List<ITimeRecorderBehaviour>();
+
+			public static bool Dispose(GameObject target)
+			{
+				target.GetComponents(ComponentCache);
+
+				for (int i = 0; i < ComponentCache.Count; i++)
+					ComponentCache[i].Dispose();
+
+				return ComponentCache.Count > 0;
 			}
 		}
 

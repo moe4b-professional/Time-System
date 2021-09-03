@@ -19,11 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class Projectile : MonoBehaviour, ObjectInstantiationRecorder.ICallback
+    public class Projectile : MonoBehaviour, ObjectLifetimeRecorder.ICallback
     {
-        public void OnTimeDestory()
+        public void Set(ObjectLifetimeRecorder reference)
         {
-            Debug.Log($"Projectile {name} Removed Because Time Was Rewound To Before it Was Created");
+            reference.OnDespawn += OnTimeDespawn;
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            TimeSystem.Objects.Dispose(collision.gameObject);
+            TimeSystem.Objects.Dispose(gameObject);
+        }
+
+        public void OnTimeDespawn()
+        {
+            Debug.Log($"{name} Despawned from Time");
         }
     }
 }
