@@ -35,7 +35,7 @@ namespace Default
             return ObjectLifeTimeState.Alive;
         }
 
-        public Action<GameObject> DestoryMethod { get; protected set; } = target => Object.Destroy(target);
+        public Action<GameObject> DestoryMethod { get; protected set; } = Object.Destroy;
 
         public GameObject Target => Behaviour.Self.gameObject;
 
@@ -58,14 +58,12 @@ namespace Default
         void Dispose()
         {
             DisposeFrame = TimeSystem.Frame.Index;
-
             Target.SetActive(false);
         }
 
         void UnDispose()
         {
             DisposeFrame = int.MaxValue;
-
             Target.SetActive(true);
         }
 

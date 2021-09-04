@@ -17,5 +17,11 @@ MonoBehaviour:
     registered: 1
     active: 1
     id: Scene
-    index: 0
+    index: 1
     path: Assets/Scene.unity
+  - asset: {fileID: 102900000, guid: 9c6c5691d4bfe0642b94685e7d4d2d13, type: 3}
+    registered: 1
+    active: 1
+    id: Initial
+    index: 0
+    path: Assets/Initial.unity

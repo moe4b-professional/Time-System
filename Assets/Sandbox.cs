@@ -21,6 +21,11 @@ namespace Default
 {
     public class Sandbox : MonoBehaviour
     {
+        public string scene;
 
+        void Start()
+        {
+            SceneManager.LoadScene(scene);
+        }
     }
 }

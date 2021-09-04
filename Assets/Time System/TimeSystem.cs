@@ -24,11 +24,21 @@ namespace Default
 {
 	public static class TimeSystem
 	{
+		public static TimeSystemState State { get; private set; }
+
+		public static bool IsRecording => State == TimeSystemState.Recording;
+		public static bool IsPaused => State == TimeSystemState.Paused;
+
+		/// <summary>
+		/// Time in Seconds
+		/// </summary>
+		public static int MaxRecordDuration { get; set; } = 30;
+
 		public static class Frame
         {
 			public static int Index { get; internal set; }
 
-			public static List<Stamp> Stamps { get; }
+			static List<Stamp> Stamps { get; }
 			public struct Stamp
 			{
 				public int Index { get; }
@@ -63,6 +73,9 @@ namespace Default
 
 			internal static void Register()
 			{
+				if (Max.Index == Index && Index > 0)
+					throw new Exception($"Frame {Index} Already Regsitered");
+
 				var entry = new Stamp(Index, Time.unscaledDeltaTime);
 				Stamps.Add(entry);
 			}
@@ -70,16 +83,24 @@ namespace Default
 			public static event FrameDelegate OnRemove;
 			public static void RemoveAt(int index)
             {
-				var entry = Stamps[index];
+				var frame = Stamps[index].Index;
 
 				Stamps.RemoveAt(index);
 
-				OnRemove?.Invoke(entry.Index);
+				OnRemove?.Invoke(frame);
 			}
 
-			internal static void Clean(int marker)
+			/// <summary>
+			/// Removes all regsitered frames
+			/// </summary>
+			internal static void Clear() => Clear(Min.Index);
+			/// <summary>
+			/// Removes all registered frames starting from marker
+			/// </summary>
+			/// <param name="startFrame"></param>
+			internal static void Clear(int startFrame)
 			{
-				var index = marker - Min.Index;
+				var index = startFrame - Min.Index;
 
 				for (int i = Stamps.Count; i-- > index;)
 					RemoveAt(i);
@@ -104,15 +125,20 @@ namespace Default
 			}
 		}
 
-		public static TimeSystemState State { get; private set; }
+		public static class Scenes
+        {
+			public static bool ClearOnLoad { get; set; } = true;
 
-		public static bool IsRecording => State == TimeSystemState.Recording;
-		public static bool IsPaused => State == TimeSystemState.Paused;
+			internal static void Configure()
+            {
+				SceneManager.sceneLoaded += LoadCalback;
+			}
 
-		/// <summary>
-		/// Time in Seconds
-		/// </summary>
-		public static int MaxRecordDuration { get; set; } = 30;
+			static void LoadCalback(Scene scene, LoadSceneMode mode)
+			{
+				if (ClearOnLoad && mode == LoadSceneMode.Single) Clear();
+			}
+		}
 
 		public delegate void FrameDelegate(int frame);
 
@@ -121,10 +147,12 @@ namespace Default
         {
 			State = TimeSystemState.Recording;
 
-			MUtility.RegisterPlayerLoop<Update>(Update);
+			MUtility.RegisterPlayerLoop<PostLateUpdate>(Update);
+
+			Scenes.Configure();
 		}
 
-		static void Update()
+        static void Update()
 		{
 			if (IsRecording) Record();
 		}
@@ -224,7 +252,12 @@ namespace Default
 
 			OnResume?.Invoke();
 
-			Frame.Clean(Frame.Index);
+			Frame.Clear(Frame.Index);
+		}
+
+		public static void Clear()
+		{
+			Frame.Clear();
 		}
 	}
 
