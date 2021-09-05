@@ -19,6 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    [RequireComponent(typeof(Rigidbody))]
-    public class RigidbodyTimeRecorderBehaviour : TimeRecorderBehaviour<RigidbodyTimeRecorder> { }
+    public class RigidbodyTimeRecorderBehaviour : TimeRecorderBehaviour<RigidbodyTimeRecorder>
+    {
+        protected override void Reset()
+        {
+            base.Reset();
+
+            var target = GetComponent<Rigidbody>();
+            instance = new RigidbodyTimeRecorder(target);
+        }
+    }
 }

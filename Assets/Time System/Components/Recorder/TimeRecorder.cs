@@ -26,6 +26,9 @@ namespace Default
 
         public virtual void Load(TimeObject reference)
         {
+            if (reference == null)
+                throw new ArgumentNullException(nameof(reference), $"Invalid TimeObject Passed for {this}");
+
             Owner = reference;
 
             Configure();
@@ -221,7 +224,7 @@ namespace Default
         }
     }
 
-    public interface ITimeRecorderBehaviour
+    public interface ITimeBehaviour
     {
         TimeObject TimeObject { get; set; }
     }

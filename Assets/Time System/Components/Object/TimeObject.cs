@@ -24,11 +24,11 @@ namespace Default
     {
         public const int ExecutionOrder = -200;
 
-        public List<ITimeRecorderBehaviour> Behaviours { get; protected set; }
+        public List<ITimeBehaviour> Behaviours { get; protected set; }
 
         protected virtual void Awake()
         {
-            Behaviours = new List<ITimeRecorderBehaviour>();
+            Behaviours = new List<ITimeBehaviour>();
             GetComponentsInChildren(true, Behaviours);
 
             for (int i = 0; i < Behaviours.Count; i++)

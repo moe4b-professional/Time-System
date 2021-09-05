@@ -23,16 +23,21 @@ using System.Reflection;
 
 namespace Default
 {
-    public abstract class TimeRecorderBehaviour<TRecorder> : MonoBehaviour, ITimeRecorderBehaviour
+    public abstract class TimeRecorderBehaviour<TRecorder> : MonoBehaviour, ITimeBehaviour
         where TRecorder : TimeRecorder
     {
         [SerializeField]
-        TRecorder instance = default;
+        protected TRecorder instance = default;
         public TRecorder Instance => instance;
 
         public TimeObject TimeObject { get; set; }
 
-        void Start()
+        protected virtual void Reset()
+        {
+
+        }
+
+        protected virtual void Start()
         {
             if (TimeObject == null)
             {

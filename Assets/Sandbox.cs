@@ -19,11 +19,8 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class Sandboxs : MonoBehaviour
+    public class Sandbox : MonoBehaviour
     {
-        void Start()
-        {
-            
-        }
+
     }
 }

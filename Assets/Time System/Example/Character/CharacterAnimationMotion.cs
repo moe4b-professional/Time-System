@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-	public class CharacterAnimationMotion : MonoBehaviour, ITimeRecorderBehaviour
+	public class CharacterAnimationMotion : MonoBehaviour, ITimeBehaviour
 	{
         [SerializeField]
         AnimationCurve curve;

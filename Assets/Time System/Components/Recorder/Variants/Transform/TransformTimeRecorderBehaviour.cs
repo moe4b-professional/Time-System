@@ -19,5 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class TransformTimeRecorderBehaviour : TimeRecorderBehaviour<TransformTimeRecorder> { }
+    public class TransformTimeRecorderBehaviour : TimeRecorderBehaviour<TransformTimeRecorder>
+    {
+        protected override void Reset()
+        {
+            base.Reset();
+
+            instance = new TransformTimeRecorder(transform, Space.Self);
+        }
+    }
 }

@@ -25,13 +25,11 @@ namespace Default
     public class TransformTimeRecorder : TimeStateRecorder<TransformTimeState>
 	{
         [SerializeField]
-        ToggleValue<Transform> context;
-        public ToggleValue<Transform> Context => context;
-
-        public Transform Target => context.Evaluate(Owner.transform);
+        Transform target;
+        public Transform Target => target;
 
         [SerializeField]
-        Space space = Space.Self;
+        Space space;
         public Space Space => space;
 
         public override void ReadState(TransformTimeState state)
@@ -70,15 +68,10 @@ namespace Default
             destination.Rotation = source.Rotation;
         }
 
-        public TransformTimeRecorder()
+        public TransformTimeRecorder(Transform target) : this(target, Space.Self) { }
+        public TransformTimeRecorder(Transform target, Space space)
         {
-
-        }
-
-        public TransformTimeRecorder(Transform context) : this(context, Space.Self) { }
-        public TransformTimeRecorder(Transform context, Space space)
-        {
-            this.context = new ToggleValue<Transform>(context);
+            this.target = target;
             this.space = space;
         }
     }

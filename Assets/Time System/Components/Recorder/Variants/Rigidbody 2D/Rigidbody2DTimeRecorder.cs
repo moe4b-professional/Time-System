@@ -22,7 +22,10 @@ namespace Default
     [Serializable]
     public class Rigidbody2DTimeRecorder : TimeStateRecorder<Rigidbody2DTimeState>
     {
-        public Rigidbody2D Target { get; protected set; }
+        [SerializeField]
+        Rigidbody2D target = default;
+        public Rigidbody2D Target => target;
+
         bool isKinematic;
 
         public override void ReadState(Rigidbody2DTimeState state)
@@ -54,10 +57,8 @@ namespace Default
         {
             base.Configure();
 
-            Target = Owner.GetComponent<Rigidbody2D>();
-
-            if(Target == null)
-                throw new Exception($"No Rigidbody2D Found on {Owner}");
+            if (Target == null)
+                throw new Exception($"No Rigidbody2D Assigned to {this} Owned by {Owner}");
         }
 
         protected override void Pause()
@@ -67,12 +68,16 @@ namespace Default
             isKinematic = Target.isKinematic;
             Target.isKinematic = true;
         }
-
         protected override void Resume()
         {
             base.Resume();
 
             Target.isKinematic = isKinematic;
+        }
+
+        public Rigidbody2DTimeRecorder(Rigidbody2D target)
+        {
+            this.target = target;
         }
     }
 

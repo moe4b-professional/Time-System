@@ -22,24 +22,27 @@ namespace Default
     [Serializable]
     public class RigidbodyTimeRecorder : TimeStateRecorder<RigidbodyTimeState>
     {
-        public Rigidbody Target { get; protected set; }
+        [SerializeField]
+        Rigidbody target = default;
+        public Rigidbody Target => target;
+
         bool isKinematic;
 
         public override void ReadState(RigidbodyTimeState state)
         {
-            state.Position = Target.position;
-            state.Velocity = Target.velocity;
+            state.Position = target.position;
+            state.Velocity = target.velocity;
 
-            state.Rotation = Target.rotation;
-            state.AngularVelocity = Target.angularVelocity;
+            state.Rotation = target.rotation;
+            state.AngularVelocity = target.angularVelocity;
         }
         public override void ApplyState(RigidbodyTimeState state)
         {
-            Target.position = state.Position;
-            Target.velocity = state.Velocity;
+            target.position = state.Position;
+            target.velocity = state.Velocity;
 
-            Target.rotation = state.Rotation;
-            Target.angularVelocity = state.AngularVelocity;
+            target.rotation = state.Rotation;
+            target.angularVelocity = state.AngularVelocity;
         }
         public override void CopyState(RigidbodyTimeState source, RigidbodyTimeState destination)
         {
@@ -54,25 +57,29 @@ namespace Default
         {
             base.Configure();
 
-            Target = Owner.GetComponent<Rigidbody>();
+            target = Owner.GetComponent<Rigidbody>();
 
             if (Target == null)
-                throw new Exception($"No Rigidbody Found on {Owner}");
+                throw new Exception($"No Rigidbody Assigned to {this} Owned by {Owner}");
         }
 
         protected override void Pause()
         {
             base.Pause();
 
-            isKinematic = Target.isKinematic;
-            Target.isKinematic = true;
+            isKinematic = target.isKinematic;
+            target.isKinematic = true;
         }
-
         protected override void Resume()
         {
             base.Resume();
 
-            Target.isKinematic = isKinematic;
+            target.isKinematic = isKinematic;
+        }
+
+        public RigidbodyTimeRecorder(Rigidbody target)
+        {
+            this.target = target;
         }
     }
 
