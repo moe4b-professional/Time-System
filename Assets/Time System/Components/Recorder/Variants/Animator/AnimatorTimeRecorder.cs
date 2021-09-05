@@ -100,10 +100,23 @@ namespace Default
         {
             base.Initialize();
 
-            ParseBones();
             ParseVariables();
+            ParseBones();
         }
 
+        void ParseVariables()
+        {
+            var parameters = target.parameters;
+
+            Variables = new List<VariableProperty>(parameters.Length);
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var entry = new VariableProperty(target, parameters[i]);
+                entry.Load(Owner);
+                Variables.Add(entry);
+            }
+        }
         void ParseBones()
         {
             var meshes = target.GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -123,19 +136,6 @@ namespace Default
                     bone.Load(Owner);
                     Bones.Add(bone);
                 }
-            }
-        }
-        void ParseVariables()
-        {
-            var parameters = target.parameters;
-
-            Variables = new List<VariableProperty>(parameters.Length);
-
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var entry = new VariableProperty(target, parameters[i]);
-                entry.Load(Owner);
-                Variables.Add(entry);
             }
         }
 

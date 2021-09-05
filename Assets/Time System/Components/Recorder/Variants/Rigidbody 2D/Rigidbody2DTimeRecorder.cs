@@ -30,19 +30,19 @@ namespace Default
 
         public override void ReadState(Rigidbody2DTimeState state)
         {
-            state.Position = Target.position;
-            state.Velocity = Target.velocity;
+            state.Position = target.position;
+            state.Velocity = target.velocity;
 
-            state.Rotation = Target.rotation;
-            state.AngularVelocity = Target.angularVelocity;
+            state.Rotation = target.rotation;
+            state.AngularVelocity = target.angularVelocity;
         }
         public override void ApplyState(Rigidbody2DTimeState state)
         {
-            Target.position = state.Position;
-            Target.velocity = state.Velocity;
+            target.position = state.Position;
+            target.velocity = state.Velocity;
 
-            Target.rotation = state.Rotation;
-            Target.angularVelocity = state.AngularVelocity;
+            target.rotation = state.Rotation;
+            target.angularVelocity = state.AngularVelocity;
         }
         public override void CopyState(Rigidbody2DTimeState source, Rigidbody2DTimeState destination)
         {
@@ -57,7 +57,7 @@ namespace Default
         {
             base.Configure();
 
-            if (Target == null)
+            if (target == null)
                 throw new Exception($"No Rigidbody2D Assigned to {this} Owned by {Owner}");
         }
 
@@ -65,14 +65,14 @@ namespace Default
         {
             base.Pause();
 
-            isKinematic = Target.isKinematic;
-            Target.isKinematic = true;
+            isKinematic = target.isKinematic;
+            target.isKinematic = true;
         }
         protected override void Resume()
         {
             base.Resume();
 
-            Target.isKinematic = isKinematic;
+            target.isKinematic = isKinematic;
         }
 
         public Rigidbody2DTimeRecorder(Rigidbody2D target)

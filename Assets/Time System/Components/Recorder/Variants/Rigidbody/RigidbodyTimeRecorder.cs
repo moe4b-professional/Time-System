@@ -59,7 +59,7 @@ namespace Default
 
             target = Owner.GetComponent<Rigidbody>();
 
-            if (Target == null)
+            if (target == null)
                 throw new Exception($"No Rigidbody Assigned to {this} Owned by {Owner}");
         }
 
