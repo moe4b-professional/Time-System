@@ -26,6 +26,14 @@ namespace Default
 
         public List<ITimeBehaviour> Behaviours { get; protected set; }
 
+        #region Lifetime
+        [SerializeField]
+        bool recordLifeTime = false;
+        public bool RecordLifeTime => recordLifeTime;
+
+        public ObjectLifetimeRecorder LifeTimeRecorder { get; protected set; }
+        #endregion
+
         protected virtual void Awake()
         {
             Behaviours = new List<ITimeBehaviour>();
@@ -37,7 +45,11 @@ namespace Default
 
         protected virtual void Start()
         {
-
+            if (recordLifeTime)
+            {
+                LifeTimeRecorder = new ObjectLifetimeRecorder();
+                TimeRecorder.Load(this, LifeTimeRecorder);
+            }
         }
 
         /// <summary>
