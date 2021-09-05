@@ -48,13 +48,9 @@ namespace Default
         {
             if (TimeSystem.IsPaused) return;
 
-            float a = timer;
-
-            var eval = curve.Evaluate(timer);
-
-            animator.SetFloat(parameter, eval);
-
             timer.Value += Time.deltaTime;
+            var eval = curve.Evaluate(timer);
+            animator.SetFloat(parameter, eval);
         }
     }
 }

@@ -31,7 +31,10 @@ namespace Default
         int speedModifier = 2;
 
         public static bool IsRecording => TimeSystem.IsRecording;
-        public static bool IsPaused => IsRecording == false;
+        public static bool IsPaused => TimeSystem.IsPaused;
+
+        float TransitionSpeed = 3f;
+        bool InTransition = false;
 
         void OnValidate()
         {
@@ -49,22 +52,46 @@ namespace Default
 
         void Update()
         {
+            if (InTransition) return;
+
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if (IsRecording)
                 {
-                    TimeSystem.Pause();
+                    StartCoroutine(Procedure());
+                    IEnumerator Procedure()
+                    {
+                        InTransition = true;
 
-                    slider.maxValue = TimeSystem.Frame.Max.Index;
-                    slider.value = TimeSystem.Frame.Index;
-                    slider.minValue = TimeSystem.Frame.Min.Index;
+                        yield return TransitionTimeScale(0f, TransitionSpeed);
+                        Time.timeScale = 1;
 
-                    slider.gameObject.SetActive(true);
+                        TimeSystem.Pause();
+
+                        slider.maxValue = TimeSystem.Frame.Max.Index;
+                        slider.value = TimeSystem.Frame.Index;
+                        slider.minValue = TimeSystem.Frame.Min.Index;
+
+                        slider.gameObject.SetActive(true);
+
+                        InTransition = false;
+                    }
                 }
                 else
                 {
-                    slider.gameObject.SetActive(false);
-                    TimeSystem.Resume();
+                    StartCoroutine(Procedure());
+                    IEnumerator Procedure()
+                    {
+                        InTransition = true;
+
+                        slider.gameObject.SetActive(false);
+                        TimeSystem.Resume();
+
+                        Time.timeScale = 0f;
+                        yield return TransitionTimeScale(1f, TransitionSpeed);
+
+                        InTransition = false;
+                    }
                 }
             }
 
@@ -83,13 +110,27 @@ namespace Default
             }
             else
             {
-                if(Input.GetKeyDown(KeyCode.R))
+                if (Input.GetKeyDown(KeyCode.R))
                 {
                     var target = MB.QueryComponents.InGlobal<TimeObject>()
                         .FirstOrDefault();
 
                     target?.Dispose();
                 }
+            }
+        }
+
+        IEnumerator TransitionTimeScale(float target, float speed)
+        {
+            while(true)
+            {
+                Time.timeScale = Mathf.MoveTowards(Time.timeScale, target, speed * Time.unscaledDeltaTime);
+
+                Time.fixedDeltaTime = Mathf.Lerp(1f / 120, 1f / 50, Time.timeScale);
+
+                yield return new WaitForEndOfFrame();
+
+                if (Mathf.Approximately(Time.timeScale, target)) break;
             }
         }
 
