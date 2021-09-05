@@ -19,11 +19,6 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class Sandboxs : MonoBehaviour
-    {
-        void Start()
-        {
-            
-        }
-    }
+	[RequireComponent(typeof(Animator))]
+	public class AnimatorTimeRecorderBehaviour : TimeRecorderBehaviour<AnimatorTimeRecorder> { }
 }

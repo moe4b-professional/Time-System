@@ -57,10 +57,7 @@ namespace Default
             Target = Behaviour.Self.GetComponent<Rigidbody>();
 
             if (Target == null)
-            {
-                Debug.LogError($"No Rigidbody Found on {Behaviour.Self}");
-                return;
-            }
+                throw new Exception($"No Rigidbody Found on {Behaviour.Self}");
         }
 
         protected override void Pause()

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 778241840}
   - component: {fileID: 778241841}
   m_Layer: 0
-  m_Name: Sandbox
+  m_Name: Scene Loader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

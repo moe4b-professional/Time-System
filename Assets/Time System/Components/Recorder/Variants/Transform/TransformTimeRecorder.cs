@@ -17,31 +17,73 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Default
 {
     [Serializable]
     public class TransformTimeRecorder : TimeStateRecorder<TransformTimeState>
 	{
-        public Transform Target => Behaviour.Self.transform;
+        [SerializeField]
+        ToggleValue<Transform> context;
+        public ToggleValue<Transform> Context => context;
+
+        public Transform Target => context.Evaluate(Behaviour.Self.transform);
+
+        [SerializeField]
+        Space space = Space.Self;
+        public Space Space => space;
 
         public override void ReadState(TransformTimeState state)
         {
-            state.Position = Target.position;
-            state.Rotation = Target.rotation;
+            switch (space)
+            {
+                case Space.World:
+                    state.Position = Target.position;
+                    state.Rotation = Target.rotation;
+                    break;
+
+                case Space.Self:
+                    state.Position = Target.localPosition;
+                    state.Rotation = Target.localRotation;
+                    break;
+            }
         }
         public override void ApplyState(TransformTimeState state)
         {
-            Target.position = state.Position;
-            Target.rotation = state.Rotation;
+            switch (space)
+            {
+                case Space.World:
+                    Target.position = state.Position;
+                    Target.rotation = state.Rotation;
+                    break;
+
+                case Space.Self:
+                    Target.localPosition = state.Position;
+                    Target.localRotation = state.Rotation;
+                    break;
+            }
         }
         public override void CopyState(TransformTimeState source, TransformTimeState destination)
         {
             destination.Position = source.Position;
             destination.Rotation = source.Rotation;
         }
+
+        public TransformTimeRecorder()
+        {
+
+        }
+
+        public TransformTimeRecorder(Transform context) : this(context, Space.Self) { }
+        public TransformTimeRecorder(Transform context, Space space)
+        {
+            this.context = new ToggleValue<Transform>(context);
+            this.space = space;
+        }
     }
 
-	public class TransformTimeState
+    public class TransformTimeState
     {
         public Vector3 Position;
         public Quaternion Rotation;

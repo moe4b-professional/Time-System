@@ -19,11 +19,13 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class Sandboxs : MonoBehaviour
+    public class SceneLoader : MonoBehaviour
     {
+        public string scene;
+
         void Start()
         {
-            
+            SceneManager.LoadScene(scene);
         }
     }
 }
