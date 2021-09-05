@@ -19,6 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-	[RequireComponent(typeof(Animator))]
-	public class AnimatorTimeRecorderBehaviour : TimeRecorderBehaviour<AnimatorTimeRecorder> { }
+    public class AnimatorTimeRecorderBehaviour : TimeRecorderBehaviour<AnimatorTimeRecorder>
+    {
+        protected override void Reset()
+        {
+            base.Reset();
+
+            var target = GetComponent<Animator>();
+            instance = new AnimatorTimeRecorder(target);
+        }
+    }
 }

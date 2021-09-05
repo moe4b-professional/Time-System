@@ -21,11 +21,13 @@ using AnimatorControllerParameter = UnityEngine.AnimatorControllerParameter;
 namespace Default
 {
     [Serializable]
-    public class AnimatorTimeRecorder : TimeStateRecorder<AnimatorTimeState>
+    public class AnimatorTimeRecorder : TimeRecorder
     {
-        public Animator Target { get; protected set; }
+        [SerializeField]
+        Animator target = default;
+        public Animator Target => target;
+
         bool enabled;
-        float speed;
 
         public List<BoneProperty> Bones { get; protected set; }
         public class BoneProperty
@@ -84,26 +86,13 @@ namespace Default
             }
         }
 
-        public override void ReadState(AnimatorTimeState state)
-        {
-            
-        }
-        public override void CopyState(AnimatorTimeState source, AnimatorTimeState destination)
-        {
-
-        }
-        public override void ApplyState(AnimatorTimeState state)
-        {
-            
-        }
-
         protected override void Configure()
         {
             base.Configure();
 
-            Target = Owner.GetComponent<Animator>();
+            target = Owner.GetComponent<Animator>();
 
-            if (Target == null)
+            if (target == null)
                 throw new Exception($"No Animator Found on {Owner}");
         }
 
@@ -117,7 +106,7 @@ namespace Default
 
         void ParseBones()
         {
-            var meshes = Target.GetComponentsInChildren<SkinnedMeshRenderer>();
+            var meshes = target.GetComponentsInChildren<SkinnedMeshRenderer>();
 
             var count = 0;
 
@@ -138,13 +127,13 @@ namespace Default
         }
         void ParseVariables()
         {
-            var parameters = Target.parameters;
+            var parameters = target.parameters;
 
             Variables = new List<VariableProperty>(parameters.Length);
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                var entry = new VariableProperty(Target, parameters[i]);
+                var entry = new VariableProperty(target, parameters[i]);
                 entry.Load(Owner);
                 Variables.Add(entry);
             }
@@ -154,23 +143,19 @@ namespace Default
         {
             base.Pause();
 
-            enabled = Target.enabled;
-            Target.enabled = false;
-
-            speed = Target.speed;
-            Target.speed = 0f;
+            enabled = target.enabled;
+            target.enabled = false;
         }
         protected override void Resume()
         {
             base.Resume();
 
-            Target.enabled = enabled;
-            Target.speed = speed;
+            target.enabled = enabled;
         }
-    }
 
-    public class AnimatorTimeState
-    {
-
+        public AnimatorTimeRecorder(Animator target)
+        {
+            this.target = target;
+        }
     }
 }
