@@ -21,6 +21,8 @@ namespace Default
 {
     public class AnimatorTimeRecorderBehaviour : TimeRecorderBehaviour<AnimatorTimeRecorder>
     {
+        public Animator Target => instance.Target;
+
         protected override void Reset()
         {
             base.Reset();

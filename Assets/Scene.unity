@@ -2423,16 +2423,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recordLifeTime: 1
---- !u!95 &1268225271 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3426786960978326101, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-  m_PrefabInstance: {fileID: 9143698385522039606}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1268225272 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8750010571370293295, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-  m_PrefabInstance: {fileID: 9143698385522039606}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1280860671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4300,34 +4290,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.target
-      value: 
-      objectReference: {fileID: 1268225271}
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.bones.exclusions.list.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.layers.exclusions.list.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.layers.exclusions.list.Array.data[0]
-      value: Base Layer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.variables.exclusions.list.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.variables.exclusions.list.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1268225270, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
-      propertyPath: instance.target
-      value: 
-      objectReference: {fileID: 1268225272}
     - target: {fileID: 8225148441722892949, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
       propertyPath: m_Name
       value: Dummy Character

@@ -199,6 +199,8 @@ namespace Default
             }
         }
 
+        public AnimatorRootMotionRecorder RootMotion { get; protected set; }
+
         protected override void Configure()
         {
             base.Configure();
@@ -213,9 +215,15 @@ namespace Default
         {
             base.Initialize();
 
-            layers.Parse(this);
             variables.Parse(this);
+            layers.Parse(this);
             bones.Parse(this);
+
+            if(target.applyRootMotion)
+            {
+                //RootMotion = new AnimatorRootMotionRecorder(target);
+                //TimeRecorder.Load(Owner, RootMotion);
+            }
         }
 
         protected override void Pause()
