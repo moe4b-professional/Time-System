@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-	public class CharacterAnimationMotion : MonoBehaviour
+	public class CharacterAnimationMotion : MonoBehaviour, ITimeRecorderBehaviour
 	{
         [SerializeField]
         AnimationCurve curve;
@@ -29,22 +29,32 @@ namespace Default
 
         Animator animator;
 
-        float timer;
+        [SerializeField]
+        TimeVariable<float> timer;
+
+        public TimeObject TimeObject { get; set; }
 
         void Awake()
         {
             animator = GetComponent<Animator>();
         }
 
+        void Start()
+        {
+            TimeRecorder.Load(TimeObject, timer);
+        }
+
         void Update()
         {
-            if (animator == null) return;
+            if (TimeSystem.IsPaused) return;
+
+            float a = timer;
 
             var eval = curve.Evaluate(timer);
 
             animator.SetFloat(parameter, eval);
 
-            timer += Time.deltaTime;
+            timer.Value += Time.deltaTime;
         }
     }
 }

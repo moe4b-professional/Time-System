@@ -16,6 +16,7 @@ using UnityEditorInternal;
 
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using AnimatorControllerParameter = UnityEngine.AnimatorControllerParameter;
 
 namespace Default
 {
@@ -34,9 +35,9 @@ namespace Default
 
             public TransformTimeRecorder Recorder { get; protected set; }
 
-            public void Load(ITimeRecorderBehaviour behaviour)
+            public void Load(TimeObject owner)
             {
-                TimeRecorder.Load(behaviour, Recorder);
+                TimeRecorder.Load(owner, Recorder);
             }
 
             public BoneProperty(Transform transform)
@@ -44,6 +45,42 @@ namespace Default
                 this.Transform = transform;
 
                 Recorder = new TransformTimeRecorder(transform, Space.Self);
+            }
+        }
+
+        public List<VariableProperty> Variables { get; protected set; }
+        public class VariableProperty
+        {
+            public string ID { get; protected set; }
+
+            public TimeRecorder Recorder { get; protected set; }
+
+            public void Load(TimeObject owner)
+            {
+                TimeRecorder.Load(owner, Recorder);
+            }
+
+            public VariableProperty(Animator context, AnimatorControllerParameter parameter)
+            {
+                ID = parameter.name;
+                Recorder = Create(context, parameter);
+            }
+
+            public static TimeRecorder Create(Animator context, AnimatorControllerParameter parameter)
+            {
+                switch (parameter.type)
+                {
+                    case UnityEngine.AnimatorControllerParameterType.Float:
+                        return new AnimatorFloatVariableTimeRecorder(context, parameter.name);
+
+                    case UnityEngine.AnimatorControllerParameterType.Int:
+                        return new AnimatorIntVariableTimeRecorder(context, parameter.name);
+
+                    case UnityEngine.AnimatorControllerParameterType.Bool:
+                        return new AnimatorBoolVariableTimeRecorder(context, parameter.name);
+                }
+
+                throw new NotImplementedException();
             }
         }
 
@@ -64,10 +101,10 @@ namespace Default
         {
             base.Configure();
 
-            Target = Behaviour.Self.gameObject.GetComponent<Animator>();
+            Target = Owner.GetComponent<Animator>();
 
             if (Target == null)
-                throw new Exception($"No Animator Found on {Behaviour.Self}");
+                throw new Exception($"No Animator Found on {Owner}");
         }
 
         protected override void Initialize()
@@ -75,25 +112,7 @@ namespace Default
             base.Initialize();
 
             ParseBones();
-        }
-
-        protected override void Pause()
-        {
-            base.Pause();
-
-            enabled = Target.enabled;
-            Target.enabled = false;
-
-            speed = Target.speed;
-            Target.speed = 0f;
-        }
-
-        protected override void Resume()
-        {
-            base.Resume();
-
-            Target.enabled = enabled;
-            Target.speed = speed;
+            ParseVariables();
         }
 
         void ParseBones()
@@ -112,12 +131,41 @@ namespace Default
                 for (int y = 0; y < meshes[x].bones.Length; y++)
                 {
                     var bone = new BoneProperty(meshes[x].bones[y]);
-
+                    bone.Load(Owner);
                     Bones.Add(bone);
-
-                    bone.Load(Behaviour);
                 }
             }
+        }
+        void ParseVariables()
+        {
+            var parameters = Target.parameters;
+
+            Variables = new List<VariableProperty>(parameters.Length);
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var entry = new VariableProperty(Target, parameters[i]);
+                entry.Load(Owner);
+                Variables.Add(entry);
+            }
+        }
+
+        protected override void Pause()
+        {
+            base.Pause();
+
+            enabled = Target.enabled;
+            Target.enabled = false;
+
+            speed = Target.speed;
+            Target.speed = 0f;
+        }
+        protected override void Resume()
+        {
+            base.Resume();
+
+            Target.enabled = enabled;
+            Target.speed = speed;
         }
     }
 

@@ -54,10 +54,10 @@ namespace Default
         {
             base.Configure();
 
-            Target = Behaviour.Self.GetComponent<Rigidbody2D>();
+            Target = Owner.GetComponent<Rigidbody2D>();
 
             if(Target == null)
-                throw new Exception($"No Rigidbody2D Found on {Behaviour.Self}");
+                throw new Exception($"No Rigidbody2D Found on {Owner}");
         }
 
         protected override void Pause()

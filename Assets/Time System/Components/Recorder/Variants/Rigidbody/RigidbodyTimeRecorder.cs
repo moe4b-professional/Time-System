@@ -54,10 +54,10 @@ namespace Default
         {
             base.Configure();
 
-            Target = Behaviour.Self.GetComponent<Rigidbody>();
+            Target = Owner.GetComponent<Rigidbody>();
 
             if (Target == null)
-                throw new Exception($"No Rigidbody Found on {Behaviour.Self}");
+                throw new Exception($"No Rigidbody Found on {Owner}");
         }
 
         protected override void Pause()

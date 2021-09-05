@@ -201,16 +201,18 @@ namespace Default
 
 		public static class Objects
         {
-			static List<ITimeRecorderBehaviour> ComponentCache = new List<ITimeRecorderBehaviour>();
-
 			public static bool Dispose(GameObject target)
 			{
-				target.GetComponents(ComponentCache);
+				var context = target.GetComponent<TimeObject>();
 
-				for (int i = 0; i < ComponentCache.Count; i++)
-					ComponentCache[i].Dispose();
+				if (context == null) return false;
 
-				return ComponentCache.Count > 0;
+				Dispsoe(context);
+				return true;
+			}
+			public static void Dispsoe(TimeObject target)
+            {
+				target.Dispose();
 			}
 		}
 

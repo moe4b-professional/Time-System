@@ -19,11 +19,11 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class Projectile : MonoBehaviour, ObjectLifetimeRecorder.ICallback
+    public class Projectile : MonoBehaviour
     {
-        public void Set(ObjectLifetimeRecorder reference)
+        void Awake()
         {
-            reference.OnDespawn += OnTimeDespawn;
+            GetComponent<TimeObject>().OnDespawn += OnTimeDespawn;
         }
 
         void OnCollisionEnter(Collision collision)
@@ -32,7 +32,7 @@ namespace Default
             TimeSystem.Objects.Dispose(gameObject);
         }
 
-        public void OnTimeDespawn()
+        void OnTimeDespawn()
         {
             Debug.Log($"{name} Despawned from Time");
         }

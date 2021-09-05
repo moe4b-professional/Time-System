@@ -22,16 +22,16 @@ namespace Default
     [Serializable]
     public abstract class TimeRecorder
     {
-        public ITimeRecorderBehaviour Behaviour { get; protected set; }
+        public TimeObject Owner { get; protected set; }
 
-        public virtual void Load(ITimeRecorderBehaviour reference)
+        public virtual void Load(TimeObject reference)
         {
-            Behaviour = reference;
+            Owner = reference;
 
             Configure();
             Initialize();
 
-            Behaviour.DestroyEvent += OnDestroy;
+            Owner.DestroyEvent += OnDestroy;
         }
 
         protected virtual void Configure()
@@ -92,24 +92,23 @@ namespace Default
 
         //Static Utility
 
-        public static void Load(ITimeRecorderBehaviour behaviour, params TimeRecorder[] recorders)
+        public static void Load(TimeObject owner, params TimeRecorder[] recorders)
         {
-            LoadAll(behaviour, recorders);
+            LoadCollection(owner, recorders);
         }
-        public static void Load(ITimeRecorderBehaviour behaviour, IList<TimeRecorder> recorders)
+        public static void Load(TimeObject owner, IList<TimeRecorder> recorders)
         {
-            LoadAll(behaviour, recorders);
+            LoadCollection(owner, recorders);
         }
-
-        public static void LoadAll(ITimeRecorderBehaviour behaviour, IList<TimeRecorder> recorders)
+        public static void LoadCollection(TimeObject owner, IList<TimeRecorder> recorders)
         {
             for (int i = 0; i < recorders.Count; i++)
-                Load(behaviour, recorders[i]);
+                Load(owner, recorders[i]);
         }
 
-        public static void Load(ITimeRecorderBehaviour behaviour, TimeRecorder recorder)
+        public static void Load(TimeObject owner, TimeRecorder recorder)
         {
-            recorder.Load(behaviour);
+            recorder.Load(owner);
         }
     }
     
@@ -224,11 +223,6 @@ namespace Default
 
     public interface ITimeRecorderBehaviour
     {
-        public MonoBehaviour Self { get; }
-
-        public event Action DisposeEvent;
-        public void Dispose();
-
-        public event Action DestroyEvent;
+        TimeObject TimeObject { get; set; }
     }
 }

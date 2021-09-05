@@ -35,9 +35,7 @@ namespace Default
             return ObjectLifeTimeState.Alive;
         }
 
-        public Action<GameObject> DestoryMethod { get; protected set; } = Object.Destroy;
-
-        public GameObject Target => Behaviour.Self.gameObject;
+        public GameObject Target => Owner.gameObject;
 
         protected override void Initialize()
         {
@@ -49,10 +47,7 @@ namespace Default
             //Record an initial value for the dispose frame
             DisposeFrame = int.MaxValue;
 
-            Behaviour.DisposeEvent += Dispose;
-
-            foreach (var callback in Target.GetComponents<ICallback>())
-                callback.Set(this);
+            Owner.DisposeEvent += Dispose;
         }
 
         void Dispose()
@@ -60,7 +55,6 @@ namespace Default
             DisposeFrame = TimeSystem.Frame.Index;
             Target.SetActive(false);
         }
-
         void UnDispose()
         {
             DisposeFrame = int.MaxValue;
@@ -85,7 +79,7 @@ namespace Default
             switch (state)
             {
                 case ObjectLifeTimeState.Despawned:
-                    Despawn();
+                    Owner.Despawn();
                     break;
 
                 case ObjectLifeTimeState.Alive:
@@ -102,19 +96,7 @@ namespace Default
         {
             base.RemoveFrame(frame);
 
-            if (frame == DisposeFrame) DestoryMethod(Target);
-        }
-
-        public event Action OnDespawn;
-        void Despawn()
-        {
-            OnDespawn?.Invoke();
-            DestoryMethod(Target);
-        }
-
-        public interface ICallback
-        {
-            void Set(ObjectLifetimeRecorder reference);
+            if (frame == DisposeFrame) Owner.Destroy(TimeObjectDestroyCause.Dispose);
         }
     }
 

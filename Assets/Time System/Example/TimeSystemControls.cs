@@ -85,7 +85,7 @@ namespace Default
             {
                 if(Input.GetKeyDown(KeyCode.R))
                 {
-                    var target = MB.QueryComponents.InGlobal<TimeRecorderBehaviour<ObjectLifetimeRecorder>>()
+                    var target = MB.QueryComponents.InGlobal<TimeObject>()
                         .FirstOrDefault();
 
                     target?.Dispose();

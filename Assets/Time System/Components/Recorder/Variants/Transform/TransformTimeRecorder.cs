@@ -28,7 +28,7 @@ namespace Default
         ToggleValue<Transform> context;
         public ToggleValue<Transform> Context => context;
 
-        public Transform Target => context.Evaluate(Behaviour.Self.transform);
+        public Transform Target => context.Evaluate(Owner.transform);
 
         [SerializeField]
         Space space = Space.Self;

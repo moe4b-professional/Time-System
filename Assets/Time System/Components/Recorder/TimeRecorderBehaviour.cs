@@ -30,23 +30,17 @@ namespace Default
         TRecorder instance = default;
         public TRecorder Instance => instance;
 
-        public MonoBehaviour Self => this;
+        public TimeObject TimeObject { get; set; }
 
         void Start()
         {
-            TimeRecorder.Load(this, instance);
-        }
+            if (TimeObject == null)
+            {
+                Debug.LogError($"TimeObject not Set for '{this}' Does this Behaviour Has a Time Recorder");
+                return;
+            }
 
-        public event Action DisposeEvent;
-        public virtual void Dispose()
-        {
-            DisposeEvent?.Invoke();
-        }
-
-        public event Action DestroyEvent;
-        protected virtual void OnDestroy()
-        {
-            DestroyEvent?.Invoke();
+            TimeRecorder.Load(TimeObject, instance);
         }
     }
 }
