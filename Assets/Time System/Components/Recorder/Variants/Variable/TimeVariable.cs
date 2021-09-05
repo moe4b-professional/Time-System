@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    public class TimeVariable<TValue> : TimeStateRecorder<TimeVariableState<TValue>>
+    public class TimeVariable<TValue> : TimeStateRecorder<TimeValueState<TValue>>
     {
         [SerializeField]
         TValue value = default;
@@ -30,15 +30,15 @@ namespace Default
             set => this.value = value;
         }
 
-        public override void ReadState(TimeVariableState<TValue> state)
+        public override void ReadState(TimeValueState<TValue> state)
         {
             state.Value = value;
         }
-        public override void ApplyState(TimeVariableState<TValue> state)
+        public override void ApplyState(TimeValueState<TValue> state)
         {
             value = state.Value;
         }
-        public override void CopyState(TimeVariableState<TValue> source, TimeVariableState<TValue> destination)
+        public override void CopyState(TimeValueState<TValue> source, TimeValueState<TValue> destination)
         {
             destination.Value = source.Value;
         }
@@ -52,8 +52,37 @@ namespace Default
         public static implicit operator TValue(TimeVariable<TValue> target) => target.value;
     }
 
-    public class TimeVariableState<TValue>
+    public class TimeField<TValue> : TimeStateRecorder<TimeValueState<TValue>>
     {
-		public TValue Value;
+        public TValue Value
+        {
+            get => Getter();
+            set => Setter(value);
+        }
+
+        public GetterDelegate Getter { get; protected set; }
+        public delegate TValue GetterDelegate();
+
+        public SetterDelegate Setter { get; protected set; }
+        public delegate void SetterDelegate(TValue value);
+
+        public override void ReadState(TimeValueState<TValue> state)
+        {
+            state.Value = Value;
+        }
+        public override void ApplyState(TimeValueState<TValue> state)
+        {
+            Value = state.Value;
+        }
+        public override void CopyState(TimeValueState<TValue> source, TimeValueState<TValue> destination)
+        {
+            destination.Value = source.Value;
+        }
+
+        public TimeField(GetterDelegate getter, SetterDelegate setter)
+        {
+            this.Getter = getter;
+            this.Setter = setter;
+        }
     }
 }

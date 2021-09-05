@@ -228,4 +228,13 @@ namespace Default
     {
         TimeObject TimeObject { get; set; }
     }
+
+    /// <summary>
+    /// Helper class for recording a single value
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    public class TimeValueState<TValue>
+    {
+        public TValue Value;
+    }
 }
