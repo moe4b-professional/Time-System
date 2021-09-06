@@ -80,10 +80,5 @@ namespace Default
     {
         public Vector3 Position;
         public Quaternion Rotation;
-
-        public TransformTimeSnapshot()
-        {
-
-        }
     }
 }
