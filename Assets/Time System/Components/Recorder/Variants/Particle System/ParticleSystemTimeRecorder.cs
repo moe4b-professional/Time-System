@@ -56,9 +56,9 @@ namespace Default
 
         protected override void Record(int frame, float delta)
         {
-            base.Record(frame, delta);
-
             Time += delta;
+
+            base.Record(frame, delta);
         }
 
         public override void ReadSnapshot(ParticleSystemTimeSnapshot snapshot)
