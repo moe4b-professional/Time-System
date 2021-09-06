@@ -6602,6 +6602,10 @@ MonoBehaviour:
     name: position
   - target: {fileID: 826352048}
     name: velocity
+  - target: {fileID: 826352048}
+    name: rotation
+  - target: {fileID: 826352048}
+    name: angularVelocity
 --- !u!114 &826352047
 MonoBehaviour:
   m_ObjectHideFlags: 0
