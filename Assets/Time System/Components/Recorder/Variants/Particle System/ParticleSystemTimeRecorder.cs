@@ -19,11 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
+    [Serializable]
 	public class ParticleSystemTimeRecorder : TimeSnapshotRecorder<ParticleSystemTimeSnapshot>
 	{
         [SerializeField]
         ParticleSystem target = default;
         public ParticleSystem Target => target;
+
+        public float Time { get; protected set; }
 
         ParticleSystemTimeState ReadState()
         {
@@ -34,14 +37,41 @@ namespace Default
             throw new NotImplementedException();
         }
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            if (target == null)
+                throw new Exception($"No Particle System Assigned to {this} Owned by {Owner}");
+
+            if(target.main.playOnAwake)
+                target.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+            target.useAutoRandomSeed = false;
+            target.randomSeed = (uint)Random.Range(0, int.MaxValue);
+
+            if (target.main.playOnAwake)
+                target.Play(false);
+        }
+
+        protected override void Record(int frame, float delta)
+        {
+            base.Record(frame, delta);
+
+            Time += delta;
+        }
+
         public override void ReadSnapshot(ParticleSystemTimeSnapshot snapshot)
         {
-            snapshot.Time = target.time;
+            snapshot.Time = Time;
             snapshot.State = ReadState();
         }
         public override void ApplySnapshot(ParticleSystemTimeSnapshot snapshot)
         {
-            target.time = snapshot.Time;
+            Time = snapshot.Time;
+
+            target.Simulate(0, false, true);
+            target.Simulate(Time, false, false);
         }
         public override void CopySnapshot(ParticleSystemTimeSnapshot source, ParticleSystemTimeSnapshot destination)
         {
@@ -84,7 +114,6 @@ namespace Default
     public class ParticleSystemTimeSnapshot
     {
         public float Time;
-
         public ParticleSystemTimeState State;
     }
 

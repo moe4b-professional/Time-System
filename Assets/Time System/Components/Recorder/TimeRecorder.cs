@@ -55,7 +55,7 @@ namespace Default
             TimeSystem.Frame.OnRemove += RemoveFrame;
         }
 
-        protected virtual void Record(int frame)
+        protected virtual void Record(int frame, float delta)
         {
             
         }
@@ -139,9 +139,9 @@ namespace Default
         public abstract void ApplySnapshot(TSnapshot snapshot);
         public abstract void CopySnapshot(TSnapshot source, TSnapshot destination);
 
-        protected override void Record(int frame)
+        protected override void Record(int frame, float delta)
         {
-            base.Record(frame);
+            base.Record(frame, delta);
 
             var snapshot = SnapshotPool.Lease();
             ReadSnapshot(snapshot);

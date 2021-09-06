@@ -216,13 +216,14 @@ namespace Default
 			if (IsRecording) Record();
 		}
 
-		public static event Frame.Delegate OnRecord;
+		public delegate void RecordDelegate(int frame, float delta);
+		public static event RecordDelegate OnRecord;
 		static void Record()
 		{
 			Frame.Register();
 			Frame.Fit(MaxRecordDuration);
 
-			OnRecord?.Invoke(Frame.Index);
+			OnRecord?.Invoke(Frame.Index, Time.deltaTime);
 
 			Frame.Index += 1;
 		}
