@@ -30,9 +30,31 @@ namespace Default
 		public static bool IsPaused => State == TimeSystemState.Paused;
 
 		/// <summary>
-		/// Time in Seconds
+		/// Maximum recording time in seconds
 		/// </summary>
 		public static int MaxRecordDuration { get; set; } = 30;
+
+		/// <summary>
+		/// Value used to predict FPS in worst case scenario
+		/// </summary>
+		public static int MaxFPS { get; set; } = 144;
+
+		/// <summary>
+		/// Predicted FPS for the game, will be used to optimize internals
+		/// </summary>
+		public static int PredictedFPS
+		{
+			get
+			{
+				if (Application.targetFrameRate > 0)
+					return Application.targetFrameRate;
+
+				if (QualitySettings.vSyncCount > 0)
+					return Screen.currentResolution.refreshRate;
+
+				return MaxFPS;
+			}
+		}
 
 		public static class Frame
         {
@@ -69,7 +91,13 @@ namespace Default
 			/// <summary>
 			/// Theoritical Frame Capacity based on MaxRecordDuration, Used in Recorder's Collections
 			/// </summary>
-			public static int Capacity => MaxRecordDuration * 60;
+			public static int Capacity => (MaxRecordDuration * PredictedFPS) + CapacityErrorCorrection;
+
+			/// <summary>
+			/// Extra value to add to the frame capacity to help correct for any possible floating point errors,
+			/// because allocating more space to begin with is better than having to resize and clone
+			/// </summary>
+			const int CapacityErrorCorrection = 30;
 
 			internal static void Register()
 			{
