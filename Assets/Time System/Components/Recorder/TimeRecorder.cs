@@ -75,7 +75,6 @@ namespace Default
         {
             
         }
-
         protected virtual void RemoveFrame(int frame)
         {
             
@@ -116,95 +115,95 @@ namespace Default
     }
     
     [Serializable]
-    public abstract class TimeStateRecorder<TState> : TimeRecorder
-        where TState : new()
+    public abstract class TimeSnapshotRecorder<TSnapshot> : TimeRecorder
+        where TSnapshot : new()
     {
-        public Dictionary<int, TState> Dictionary { get; private set; }
+        public Dictionary<int, TSnapshot> Snapshots { get; private set; }
 
-        protected TState CacheState;
+        /// <summary>
+        /// The last applied snapshot, useful for recalling conditional state
+        /// like recalling a rigidbody's velocity after it's made non kinematic
+        /// </summary>
+        protected TSnapshot LastSnapshot;
 
         protected override void Configure()
         {
             base.Configure();
 
-            Dictionary = new Dictionary<int, TState>(TimeSystem.Frame.Capacity);
+            Snapshots = new Dictionary<int, TSnapshot>(TimeSystem.Frame.Capacity);
 
-            CacheState = StatePool.Lease();
+            LastSnapshot = SnapshotPool.Lease();
         }
 
-        public abstract void ReadState(TState state);
-        public abstract void ApplyState(TState state);
-        public abstract void CopyState(TState source, TState destination);
+        public abstract void ReadSnapshot(TSnapshot snapshot);
+        public abstract void ApplySnapshot(TSnapshot snapshot);
+        public abstract void CopySnapshot(TSnapshot source, TSnapshot destination);
 
         protected override void Record(int frame)
         {
             base.Record(frame);
 
-            var state = StatePool.Lease();
-
-            ReadState(state);
-
-            Dictionary.Add(frame, state);
+            var snapshot = SnapshotPool.Lease();
+            ReadSnapshot(snapshot);
+            Snapshots.Add(frame, snapshot);
         }
 
         protected override void Pause()
         {
             base.Pause();
 
-            ReadState(CacheState);
+            ReadSnapshot(LastSnapshot);
         }
-
         protected override void Resume()
         {
             base.Resume();
 
-            ApplyState(CacheState);
+            ApplySnapshot(LastSnapshot);
         }
 
         protected override void ApplyFrame(int frame)
         {
             base.ApplyFrame(frame);
 
-            if (Dictionary.TryGetValue(frame, out var state) == false)
+            if (Snapshots.TryGetValue(frame, out var snapshot) == false)
             {
-                //No state recorded for frame for whatever reason
+                //No snapshot recorded for frame for whatever reason
                 return;
             }
 
-            CopyState(state, CacheState);
-            ApplyState(state);
+            CopySnapshot(snapshot, LastSnapshot);
+            ApplySnapshot(snapshot);
         }
-
         protected override void RemoveFrame(int frame)
         {
             base.RemoveFrame(frame);
 
-            if (Dictionary.TryGetValue(frame, out var state) == false) return;
+            if (Snapshots.TryGetValue(frame, out var snapshot) == false) return;
 
-            StatePool.Return(state);
+            SnapshotPool.Return(snapshot);
 
-            Dictionary.Remove(frame);
+            Snapshots.Remove(frame);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            StatePool.Return(CacheState);
+            SnapshotPool.Return(LastSnapshot);
 
-            foreach (var state in Dictionary.Values)
-                StatePool.Return(state);
+            foreach (var snapshot in Snapshots.Values)
+                SnapshotPool.Return(snapshot);
         }
 
         //Static Utility
 
-        public static class StatePool
+        public static class SnapshotPool
         {
-            static Queue<TState> Queue;
+            static Queue<TSnapshot> Queue;
 
-            public static Func<TState> Constructor { get; set; } = () => new TState();
+            public static Func<TSnapshot> Constructor { get; set; } = () => new TSnapshot();
 
-            public static TState Lease()
+            public static TSnapshot Lease()
             {
                 if (Queue.Count == 0)
                     return Constructor();
@@ -212,14 +211,14 @@ namespace Default
                 return Queue.Dequeue();
             }
 
-            public static void Return(TState state)
+            public static void Return(TSnapshot snapshot)
             {
-                Queue.Enqueue(state);
+                Queue.Enqueue(snapshot);
             }
 
-            static StatePool()
+            static SnapshotPool()
             {
-                Queue = new Queue<TState>(TimeSystem.Frame.Capacity);
+                Queue = new Queue<TSnapshot>(TimeSystem.Frame.Capacity);
             }
         }
     }
@@ -233,7 +232,7 @@ namespace Default
     /// Helper class for recording a single value
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public class TimeValueState<TValue>
+    public class TimeValueSnapshot<TValue>
     {
         public TValue Value;
     }

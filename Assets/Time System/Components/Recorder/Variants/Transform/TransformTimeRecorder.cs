@@ -22,7 +22,7 @@ using MB;
 namespace Default
 {
     [Serializable]
-    public class TransformTimeRecorder : TimeStateRecorder<TransformTimeState>
+    public class TransformTimeRecorder : TimeSnapshotRecorder<TransformTimeSnapshot>
 	{
         [SerializeField]
         Transform target;
@@ -32,37 +32,37 @@ namespace Default
         Space space;
         public Space Space => space;
 
-        public override void ReadState(TransformTimeState state)
+        public override void ReadSnapshot(TransformTimeSnapshot snapshot)
         {
             switch (space)
             {
                 case Space.World:
-                    state.Position = Target.position;
-                    state.Rotation = Target.rotation;
+                    snapshot.Position = Target.position;
+                    snapshot.Rotation = Target.rotation;
                     break;
 
                 case Space.Self:
-                    state.Position = Target.localPosition;
-                    state.Rotation = Target.localRotation;
+                    snapshot.Position = Target.localPosition;
+                    snapshot.Rotation = Target.localRotation;
                     break;
             }
         }
-        public override void ApplyState(TransformTimeState state)
+        public override void ApplySnapshot(TransformTimeSnapshot snapshot)
         {
             switch (space)
             {
                 case Space.World:
-                    Target.position = state.Position;
-                    Target.rotation = state.Rotation;
+                    Target.position = snapshot.Position;
+                    Target.rotation = snapshot.Rotation;
                     break;
 
                 case Space.Self:
-                    Target.localPosition = state.Position;
-                    Target.localRotation = state.Rotation;
+                    Target.localPosition = snapshot.Position;
+                    Target.localRotation = snapshot.Rotation;
                     break;
             }
         }
-        public override void CopyState(TransformTimeState source, TransformTimeState destination)
+        public override void CopySnapshot(TransformTimeSnapshot source, TransformTimeSnapshot destination)
         {
             destination.Position = source.Position;
             destination.Rotation = source.Rotation;
@@ -76,12 +76,12 @@ namespace Default
         }
     }
 
-    public class TransformTimeState
+    public class TransformTimeSnapshot
     {
         public Vector3 Position;
         public Quaternion Rotation;
 
-        public TransformTimeState()
+        public TransformTimeSnapshot()
         {
 
         }

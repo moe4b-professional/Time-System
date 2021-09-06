@@ -23,13 +23,11 @@ using MB;
 namespace Default
 {
     [Serializable]
-    public class AnimatorTimeRecorder : TimeRecorder
+    public class AnimatorTimeRecorder : TimeSnapshotRecorder<AnimatorTimeSnapshot>
     {
         [SerializeField]
         Animator target = default;
         public Animator Target => target;
-
-        bool enabled;
 
         [SerializeField]
         BonesProperty bones = default;
@@ -47,22 +45,43 @@ namespace Default
                 public Transform Transform { get; protected set; }
                 public GameObject GameObject => Transform.gameObject;
 
-                public TransformTimeRecorder Recorder { get; protected set; }
+                public TimeRecorder Recorder { get; protected set; }
                 public void Load(TimeObject owner)
                 {
                     TimeRecorder.Load(owner, Recorder);
                 }
 
-                public Controller(Transform transform)
+                public Controller(Transform transform, Type type)
                 {
                     this.Transform = transform;
 
-                    Recorder = new TransformTimeRecorder(transform, Space.Self);
+                    Recorder = CreateRecorder(transform, type);
                 }
+
+                public static TimeRecorder CreateRecorder(Transform transform, Type type)
+                {
+                    switch (type)
+                    {
+                        case Type.Joint:
+                            return new AnimatorBoneRotationTimeRecorder(transform);
+
+                        case Type.Hips:
+                        case Type.Generic:
+                            return new AnimatorBoneCoordinatesTimeRecorder(transform);
+                    }
+
+                    throw new NotImplementedException();
+                }
+            }
+
+            public enum Type
+            {
+                Joint, Hips, Generic
             }
 
             internal void Parse(AnimatorTimeRecorder context)
             {
+                var animator = context.target;
                 var meshes = context.target.GetComponentsInChildren<SkinnedMeshRenderer>();
 
                 var count = 0;
@@ -78,12 +97,23 @@ namespace Default
                     {
                         if (exclusions.Contains(meshes[x].bones[y])) continue;
 
-                        var bone = new Controller(meshes[x].bones[y]);
+                        var type = DetectType(animator, meshes[x].bones[y]);
+                        var bone = new Controller(meshes[x].bones[y], type);
                         bone.Load(context.Owner);
 
                         List.Add(bone);
                     }
                 }
+            }
+
+            internal static Type DetectType(Animator animator, Transform transform)
+            {
+                if (animator.isHuman == false) return Type.Generic;
+
+                var hips = animator.GetBoneTransform(HumanBodyBones.Hips);
+                if (transform == hips) return Type.Hips;
+
+                return Type.Joint;
             }
         }
 
@@ -201,16 +231,26 @@ namespace Default
 
         public AnimatorRootMotionRecorder RootMotion { get; protected set; }
 
+        public override void ReadSnapshot(AnimatorTimeSnapshot snapshot)
+        {
+            snapshot.Enabled = target.enabled;
+        }
+        public override void ApplySnapshot(AnimatorTimeSnapshot snapshot)
+        {
+
+        }
+        public override void CopySnapshot(AnimatorTimeSnapshot source, AnimatorTimeSnapshot destination)
+        {
+            destination.Enabled = source.Enabled;
+        }
+
         protected override void Configure()
         {
             base.Configure();
 
-            target = Owner.GetComponent<Animator>();
-
             if (target == null)
-                throw new Exception($"No Animator Found on {Owner}");
+                throw new Exception($"No Animator Assigned to {this} Owned by {Owner}");
         }
-
         protected override void Initialize()
         {
             base.Initialize();
@@ -230,19 +270,23 @@ namespace Default
         {
             base.Pause();
 
-            enabled = target.enabled;
             target.enabled = false;
         }
         protected override void Resume()
         {
             base.Resume();
 
-            target.enabled = enabled;
+            target.enabled = LastSnapshot.Enabled;
         }
 
         public AnimatorTimeRecorder(Animator target)
         {
             this.target = target;
         }
+    }
+
+    public class AnimatorTimeSnapshot
+    {
+        public bool Enabled;
     }
 }

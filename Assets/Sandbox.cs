@@ -21,6 +21,9 @@ namespace Default
 {
     public class Sandbox : MonoBehaviour
     {
+        void Start()
+        {
 
+        }
     }
 }

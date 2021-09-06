@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    public abstract class AnimatorVariableTimeRecorder<TValue> : TimeStateRecorder<TimeValueState<TValue>>
+    public abstract class AnimatorVariableTimeRecorder<TValue> : TimeSnapshotRecorder<TimeValueSnapshot<TValue>>
         where TValue : struct
     {
         [SerializeField]
@@ -44,7 +44,7 @@ namespace Default
             Hash = Animator.StringToHash(ID);
         }
 
-        public override void CopyState(TimeValueState<TValue> source, TimeValueState<TValue> destination)
+        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
         {
             destination.Value = source.Value;
         }
@@ -59,13 +59,13 @@ namespace Default
     [Serializable]
     public class AnimatorIntVariableTimeRecorder : AnimatorVariableTimeRecorder<int>
     {
-        public override void ReadState(TimeValueState<int> state)
+        public override void ReadSnapshot(TimeValueSnapshot<int> snapshot)
         {
-            state.Value = Context.GetInteger(Hash);
+            snapshot.Value = Context.GetInteger(Hash);
         }
-        public override void ApplyState(TimeValueState<int> state)
+        public override void ApplySnapshot(TimeValueSnapshot<int> snapshot)
         {
-            Context.SetInteger(Hash, state.Value);
+            Context.SetInteger(Hash, snapshot.Value);
         }
 
         public AnimatorIntVariableTimeRecorder(Animator animator, string id) : base(animator, id) { }
@@ -74,13 +74,13 @@ namespace Default
     [Serializable]
     public class AnimatorFloatVariableTimeRecorder : AnimatorVariableTimeRecorder<float>
     {
-        public override void ReadState(TimeValueState<float> state)
+        public override void ReadSnapshot(TimeValueSnapshot<float> snapshot)
         {
-            state.Value = Context.GetFloat(Hash);
+            snapshot.Value = Context.GetFloat(Hash);
         }
-        public override void ApplyState(TimeValueState<float> state)
+        public override void ApplySnapshot(TimeValueSnapshot<float> snapshot)
         {
-            Context.SetFloat(Hash, state.Value);
+            Context.SetFloat(Hash, snapshot.Value);
         }
 
         public AnimatorFloatVariableTimeRecorder(Animator animator, string id) : base(animator, id) { }
@@ -89,13 +89,13 @@ namespace Default
     [Serializable]
     public class AnimatorBoolVariableTimeRecorder : AnimatorVariableTimeRecorder<bool>
     {
-        public override void ReadState(TimeValueState<bool> state)
+        public override void ReadSnapshot(TimeValueSnapshot<bool> snapshot)
         {
-            state.Value = Context.GetBool(Hash);
+            snapshot.Value = Context.GetBool(Hash);
         }
-        public override void ApplyState(TimeValueState<bool> state)
+        public override void ApplySnapshot(TimeValueSnapshot<bool> snapshot)
         {
-            Context.SetBool(Hash, state.Value);
+            Context.SetBool(Hash, snapshot.Value);
         }
 
         public AnimatorBoolVariableTimeRecorder(Animator animator, string id) : base(animator, id) { }

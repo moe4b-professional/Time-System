@@ -20,44 +20,44 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    public class RigidbodyTimeRecorder : TimeStateRecorder<RigidbodyTimeState>
+    public class RigidbodyTimeRecorder : TimeSnapshotRecorder<RigidbodyTimeSnapshot>
     {
         [SerializeField]
         Rigidbody target = default;
         public Rigidbody Target => target;
 
-        bool isKinematic;
-
-        public override void ReadState(RigidbodyTimeState state)
+        public override void ReadSnapshot(RigidbodyTimeSnapshot snapshot)
         {
-            state.Position = target.position;
-            state.Velocity = target.velocity;
+            snapshot.Position = target.position;
+            snapshot.Velocity = target.velocity;
 
-            state.Rotation = target.rotation;
-            state.AngularVelocity = target.angularVelocity;
+            snapshot.Rotation = target.rotation;
+            snapshot.AngularVelocity = target.angularVelocity;
+
+            snapshot.IsKinematic = target.isKinematic;
         }
-        public override void ApplyState(RigidbodyTimeState state)
+        public override void ApplySnapshot(RigidbodyTimeSnapshot snapshot)
         {
-            target.position = state.Position;
-            target.velocity = state.Velocity;
+            target.position = snapshot.Position;
+            target.velocity = snapshot.Velocity;
 
-            target.rotation = state.Rotation;
-            target.angularVelocity = state.AngularVelocity;
+            target.rotation = snapshot.Rotation;
+            target.angularVelocity = snapshot.AngularVelocity;
         }
-        public override void CopyState(RigidbodyTimeState source, RigidbodyTimeState destination)
+        public override void CopySnapshot(RigidbodyTimeSnapshot source, RigidbodyTimeSnapshot destination)
         {
             destination.Position = source.Position;
             destination.Velocity = source.Velocity;
 
             destination.Rotation = source.Rotation;
             destination.AngularVelocity = source.AngularVelocity;
+
+            destination.IsKinematic = source.IsKinematic;
         }
 
         protected override void Configure()
         {
             base.Configure();
-
-            target = Owner.GetComponent<Rigidbody>();
 
             if (target == null)
                 throw new Exception($"No Rigidbody Assigned to {this} Owned by {Owner}");
@@ -67,14 +67,13 @@ namespace Default
         {
             base.Pause();
 
-            isKinematic = target.isKinematic;
             target.isKinematic = true;
         }
         protected override void Resume()
         {
             base.Resume();
 
-            target.isKinematic = isKinematic;
+            target.isKinematic = LastSnapshot.IsKinematic;
         }
 
         public RigidbodyTimeRecorder(Rigidbody target)
@@ -83,7 +82,7 @@ namespace Default
         }
     }
 
-    public class RigidbodyTimeState
+    public class RigidbodyTimeSnapshot
     {
         public Vector3 Position;
         public Vector3 Velocity;
@@ -91,9 +90,6 @@ namespace Default
         public Quaternion Rotation;
         public Vector3 AngularVelocity;
 
-        public RigidbodyTimeState()
-        {
-
-        }
+        public bool IsKinematic;
     }
 }

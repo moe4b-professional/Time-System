@@ -19,22 +19,22 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class AnimatorRootMotionRecorder : TimeStateRecorder<AnimatorRootMotionState>
+    public class AnimatorRootMotionRecorder : TimeSnapshotRecorder<AnimatorRootMotionSnapshot>
     {
         public Animator Animator { get; protected set; }
         public Transform Transform => Animator.transform;
 
-        public override void ReadState(AnimatorRootMotionState state)
+        public override void ReadSnapshot(AnimatorRootMotionSnapshot snapshot)
         {
-            state.Position = Animator.rootPosition;
-            state.Rotation = Animator.rootRotation;
+            snapshot.Position = Animator.rootPosition;
+            snapshot.Rotation = Animator.rootRotation;
         }
-        public override void ApplyState(AnimatorRootMotionState state)
+        public override void ApplySnapshot(AnimatorRootMotionSnapshot snapshot)
         {
-            Animator.rootPosition = state.Position;
-            Animator.rootRotation = state.Rotation;
+            Animator.rootPosition = snapshot.Position;
+            Animator.rootRotation = snapshot.Rotation;
         }
-        public override void CopyState(AnimatorRootMotionState source, AnimatorRootMotionState destination)
+        public override void CopySnapshot(AnimatorRootMotionSnapshot source, AnimatorRootMotionSnapshot destination)
         {
             destination.Position = source.Position;
             destination.Rotation = source.Rotation;
@@ -46,7 +46,7 @@ namespace Default
         }
     }
 
-    public class AnimatorRootMotionState
+    public class AnimatorRootMotionSnapshot
     {
         public Vector3 Position;
         public Quaternion Rotation;

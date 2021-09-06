@@ -80,7 +80,7 @@ namespace Default
 				Stamps.Add(entry);
 			}
 
-			public static event FrameDelegate OnRemove;
+			public static event Delegate OnRemove;
 			public static void RemoveAt(int index)
             {
 				var frame = Stamps[index].Index;
@@ -123,6 +123,8 @@ namespace Default
 				Index = 0;
 				Stamps = new List<Stamp>();
 			}
+
+			public delegate void Delegate(int frame);
 		}
 
 		public static class Scenes
@@ -140,25 +142,25 @@ namespace Default
 			}
 		}
 
-		public delegate void FrameDelegate(int frame);
-
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		static void OnLoad()
-        {
-			State = TimeSystemState.Recording;
-
-			MUtility.RegisterPlayerLoop<PostLateUpdate>(Update);
-
-			Scenes.Configure();
-		}
-
-        static void Update()
+		public static class Objects
 		{
-			if (IsRecording) Record();
+			public static bool Dispose(GameObject target)
+			{
+				var context = target.GetComponent<TimeObject>();
+
+				if (context == null) return false;
+
+				Dispsoe(context);
+				return true;
+			}
+			public static void Dispsoe(TimeObject target)
+			{
+				target.Dispose();
+			}
 		}
 
 		public static class Playback
-        {
+		{
 			public static bool Rewind() => Rewind(1);
 			public static bool Rewind(int steps)
 			{
@@ -167,7 +169,7 @@ namespace Default
 				return Seek(destination);
 			}
 
-			public static event FrameDelegate OnSeek;
+			public static event Frame.Delegate OnSeek;
 			/// <summary>
 			/// Moves the timeline to the current frame
 			/// </summary>
@@ -199,24 +201,22 @@ namespace Default
 			}
 		}
 
-		public static class Objects
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+		static void OnLoad()
         {
-			public static bool Dispose(GameObject target)
-			{
-				var context = target.GetComponent<TimeObject>();
+			State = TimeSystemState.Recording;
 
-				if (context == null) return false;
+			MUtility.RegisterPlayerLoop<PostLateUpdate>(Update);
 
-				Dispsoe(context);
-				return true;
-			}
-			public static void Dispsoe(TimeObject target)
-            {
-				target.Dispose();
-			}
+			Scenes.Configure();
 		}
 
-		public static event FrameDelegate OnRecord;
+        static void Update()
+		{
+			if (IsRecording) Record();
+		}
+
+		public static event Frame.Delegate OnRecord;
 		static void Record()
 		{
 			Frame.Register();

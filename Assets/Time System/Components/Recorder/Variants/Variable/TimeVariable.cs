@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    public class TimeVariable<TValue> : TimeStateRecorder<TimeValueState<TValue>>
+    public class TimeVariable<TValue> : TimeSnapshotRecorder<TimeValueSnapshot<TValue>>
     {
         [SerializeField]
         TValue value = default;
@@ -30,15 +30,15 @@ namespace Default
             set => this.value = value;
         }
 
-        public override void ReadState(TimeValueState<TValue> state)
+        public override void ReadSnapshot(TimeValueSnapshot<TValue> snapshot)
         {
-            state.Value = value;
+            snapshot.Value = value;
         }
-        public override void ApplyState(TimeValueState<TValue> state)
+        public override void ApplySnapshot(TimeValueSnapshot<TValue> snapshot)
         {
-            value = state.Value;
+            value = snapshot.Value;
         }
-        public override void CopyState(TimeValueState<TValue> source, TimeValueState<TValue> destination)
+        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
         {
             destination.Value = source.Value;
         }
@@ -52,7 +52,7 @@ namespace Default
         public static implicit operator TValue(TimeVariable<TValue> target) => target.value;
     }
 
-    public class TimeField<TValue> : TimeStateRecorder<TimeValueState<TValue>>
+    public class TimeField<TValue> : TimeSnapshotRecorder<TimeValueSnapshot<TValue>>
     {
         public TValue Value
         {
@@ -66,15 +66,15 @@ namespace Default
         public SetterDelegate Setter { get; protected set; }
         public delegate void SetterDelegate(TValue value);
 
-        public override void ReadState(TimeValueState<TValue> state)
+        public override void ReadSnapshot(TimeValueSnapshot<TValue> snapshot)
         {
-            state.Value = Value;
+            snapshot.Value = Value;
         }
-        public override void ApplyState(TimeValueState<TValue> state)
+        public override void ApplySnapshot(TimeValueSnapshot<TValue> snapshot)
         {
-            Value = state.Value;
+            Value = snapshot.Value;
         }
-        public override void CopyState(TimeValueState<TValue> source, TimeValueState<TValue> destination)
+        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
         {
             destination.Value = source.Value;
         }

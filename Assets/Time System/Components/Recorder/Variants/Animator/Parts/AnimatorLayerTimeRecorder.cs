@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Default
 {
-    public class AnimatorLayerTimeRecorder : TimeStateRecorder<AnimatorLayerState>
+    public class AnimatorLayerTimeRecorder : TimeSnapshotRecorder<AnimatorLayerSnapshot>
     {
         public Animator Animator { get; protected set; }
         public int Index { get; protected set; }
@@ -30,25 +30,25 @@ namespace Default
             this.Index = index;
         }
 
-        public override void ReadState(AnimatorLayerState state)
+        public override void ReadSnapshot(AnimatorLayerSnapshot snapshot)
         {
-            var info = Animator.GetCurrentAnimatorStateInfo(Index);
+            var state = Animator.GetCurrentAnimatorStateInfo(Index);
 
-            state.Hash = info.fullPathHash;
-            state.Time = info.normalizedTime;
+            snapshot.Hash = state.fullPathHash;
+            snapshot.Time = state.normalizedTime;
         }
-        public override void ApplyState(AnimatorLayerState state)
+        public override void ApplySnapshot(AnimatorLayerSnapshot snapshot)
         {
-            Animator.Play(state.Hash, Index, state.Time);
+            Animator.Play(snapshot.Hash, Index, snapshot.Time);
         }
-        public override void CopyState(AnimatorLayerState source, AnimatorLayerState destination)
+        public override void CopySnapshot(AnimatorLayerSnapshot source, AnimatorLayerSnapshot destination)
         {
             destination.Hash = source.Hash;
             destination.Time = source.Time;
         }
     }
 
-    public class AnimatorLayerState
+    public class AnimatorLayerSnapshot
     {
         public int Hash;
         public float Time;
