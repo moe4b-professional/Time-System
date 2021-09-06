@@ -1384,6 +1384,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recordLifeTime: 1
+--- !u!4 &465500669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8516367590486168400, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+  m_PrefabInstance: {fileID: 9143698385522039606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &475617308 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8725348161034923814, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+  m_PrefabInstance: {fileID: 9143698385522039606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &588640673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1577,6 +1587,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recordLifeTime: 1
+--- !u!4 &802149717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5378660957657661356, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+  m_PrefabInstance: {fileID: 9143698385522039606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &816193608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,6 +1874,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1040778046 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7119062196963498946, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+  m_PrefabInstance: {fileID: 9143698385522039606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1042601551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4290,6 +4310,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.exclusions.list.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.exclusions.list.Array.data[0]
+      value: 
+      objectReference: {fileID: 475617308}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.exclusions.list.Array.data[1]
+      value: 
+      objectReference: {fileID: 802149717}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.exclusions.list.Array.data[2]
+      value: 
+      objectReference: {fileID: 1040778046}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.exclusions.list.Array.data[3]
+      value: 
+      objectReference: {fileID: 465500669}
     - target: {fileID: 8225148441722892949, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
       propertyPath: m_Name
       value: Dummy Character
