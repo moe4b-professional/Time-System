@@ -39,12 +39,19 @@ namespace Default
         }
         public override void ApplySnapshot(AnimatorLayerSnapshot snapshot)
         {
-            Animator.Play(snapshot.Hash, Index, snapshot.Time);
+
         }
         public override void CopySnapshot(AnimatorLayerSnapshot source, AnimatorLayerSnapshot destination)
         {
             destination.Hash = source.Hash;
             destination.Time = source.Time;
+        }
+
+        protected override void Resume()
+        {
+            base.Resume();
+
+            Animator.Play(LastSnapshot.Hash, Index, LastSnapshot.Time);
         }
     }
 

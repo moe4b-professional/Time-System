@@ -4311,6 +4311,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.bones.enable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.layers.enable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
+      propertyPath: instance.variables.enable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268225268, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
       propertyPath: instance.bones.exclusions.list.Array.size
       value: 0
       objectReference: {fileID: 0}

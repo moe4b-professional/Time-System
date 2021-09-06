@@ -36,6 +36,10 @@ namespace Default
         public class BonesProperty
         {
             [SerializeField]
+            bool enable = true;
+            public bool Enable => enable;
+
+            [SerializeField]
             UHashSet<Transform> exclusions = default;
             public UHashSet<Transform> Exclusion => exclusions;
 
@@ -81,6 +85,8 @@ namespace Default
 
             internal void Parse(AnimatorTimeRecorder context)
             {
+                if (enable == false) return;
+
                 var animator = context.target;
                 var meshes = context.target.GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -124,6 +130,10 @@ namespace Default
         public class VariablesProperty
         {
             [SerializeField]
+            bool enable = true;
+            public bool Enable => enable;
+
+            [SerializeField]
             UHashSet<string> exclusions = default;
             public UHashSet<string> Exclusions => exclusions;
 
@@ -164,6 +174,8 @@ namespace Default
 
             internal void Parse(AnimatorTimeRecorder context)
             {
+                if (enable == false) return;
+
                 var animator = context.target;
                 var parameters = animator.parameters;
 
@@ -172,6 +184,7 @@ namespace Default
                 for (int i = 0; i < parameters.Length; i++)
                 {
                     if (exclusions.Contains(parameters[i].name)) continue;
+                    if (parameters[i].type == UnityEngine.AnimatorControllerParameterType.Trigger) continue;
 
                     var entry = new Controller(animator, parameters[i]);
                     entry.Load(context.Owner);
@@ -187,6 +200,10 @@ namespace Default
         [Serializable]
         public class LayersProperty
         {
+            [SerializeField]
+            bool enable = true;
+            public bool Enable => enable;
+
             [SerializeField]
             UHashSet<string> exclusions = default;
             public UHashSet<string> Exclusions => exclusions;
@@ -211,6 +228,8 @@ namespace Default
 
             internal void Parse(AnimatorTimeRecorder context)
             {
+                if (enable == false) return;
+
                 var animator = context.target;
 
                 List = new List<Controller>(animator.layerCount);
