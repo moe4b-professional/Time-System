@@ -25,37 +25,20 @@ using UnityEngine.EventSystems;
 
 namespace Default
 {
-	public class PropertyRecorder : MonoBehaviour, ITimeBehaviour
-	{
+    public class PropertyTimeRecorder : MonoBehaviour, ITimeBehaviour
+    {
         [SerializeField]
-        List<Entry> entries = default;
-        public List<Entry> Entries => entries;
-        [Serializable]
-        public class Entry
-        {
-            [SerializeField]
-            Object target = default;
-            public Object Target => target;
-
-            [SerializeField]
-            string name = default;
-            public string Name => name;
-
-            public PropertyInfo LoadProperty()
-            {
-                var type = target.GetType();
-
-                var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
-
-                var property = type.GetProperty(Name, flags);
-
-                return property;
-            }
-        }
+        List<UnityObjectProperty> entries = default;
+        public List<UnityObjectProperty> Entries => entries;
 
         public List<TimeRecorder> Recorders { get; protected set; }
         public class Recorder<TValue> : TimeSnapshotRecorder<TimeValueSnapshot<TValue>>
         {
+            public Object Target { get; protected set; }
+            public ICallback Callback { get; protected set; }
+
+            public string Name { get; protected set; }
+
             public TValue Value
             {
                 get => Getter();
@@ -75,6 +58,8 @@ namespace Default
             public override void ApplySnapshot(TimeValueSnapshot<TValue> snapshot)
             {
                 Value = snapshot.Value;
+
+                if (Callback != null) Callback.OnPropertyRewind(Name);
             }
             public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
             {
@@ -83,9 +68,19 @@ namespace Default
 
             public Recorder(Object target, PropertyInfo property)
             {
+                this.Target = target;
+                Callback = target as ICallback;
+
+                Name = property.Name;
+
                 Getter = property.GetMethod.CreateDelegate<GetDelegate>(target);
                 Setter = property.SetMethod.CreateDelegate<SetDelegate>(target);
             }
+        }
+
+        public interface ICallback
+        {
+            void OnPropertyRewind(string name);
         }
 
         public TimeObject TimeObject { get; set; }
@@ -98,7 +93,7 @@ namespace Default
             {
                 var property = entries[i].LoadProperty();
 
-                if(property == null)
+                if (property == null)
                 {
                     Debug.LogError($"Invalid Entry Specified for '{entries[i].Target}->{entries[i].Name}'");
                     continue;
