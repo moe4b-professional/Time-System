@@ -234,12 +234,12 @@ namespace Default
         {
 			State = TimeSystemState.Recording;
 
-			MUtility.RegisterPlayerLoop<PostLateUpdate>(Update);
+			MUtility.RegisterPlayerLoop<PostLateUpdate>(Process);
 
 			Scenes.Configure();
 		}
 
-        static void Update()
+        static void Process()
 		{
 			if (IsRecording) Record();
 		}

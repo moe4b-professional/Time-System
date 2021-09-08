@@ -20,7 +20,7 @@ using Random = UnityEngine.Random;
 using MB;
 using System.Reflection;
 
-namespace MB
+namespace Default
 {
     [Serializable]
     public class UnityObjectProperty
