@@ -172,28 +172,56 @@ namespace Default
 
 		public static class Objects
 		{
+			#region Destroy
 			/// <summary>
 			/// Destroys a GameObject with the possibility to rewind it back
 			/// if that GameObject has a TimeObject component that records its lifetime
+			/// or destroys the object using Object.Destroy otherwise
 			/// </summary>
 			/// <param name="target"></param>
-			public static bool Dispose(GameObject target)
+			public static void Destroy(GameObject target) => Destroy(target, Object.Destroy);
+			/// <summary>
+			/// Destroys a GameObject with the possibility to rewind it back
+			/// if that GameObject has a TimeObject component that records its lifetime
+			/// or destroys the object using the specified fallback method
+			/// </summary>
+			/// <param name="target"></param>
+			public static void Destroy(GameObject target, Action<GameObject> fallback)
+			{
+				if (TryDestroy(target) == false)
+					fallback(target);
+			}
+
+			/// <summary>
+			/// Destroys a GameObject with the possibility to rewind it back
+			/// if that GameObject has a TimeObject component that records its lifetime,
+			/// returns true if the object could be destroyed as a time object
+			/// </summary>
+			/// <param name="target"></param>
+			public static bool TryDestroy(GameObject target)
 			{
 				var context = target.GetComponent<TimeObject>();
 
 				if (context == null) return false;
 				if (context.Lifetime.Record == false) return false;
 
-				Dispsoe(context);
+				Destroy(context);
 				return true;
 			}
+
 			/// <summary>
 			/// Destroys an object with the possibility to rewind it back
 			/// </summary>
 			/// <param name="target"></param>
-			public static void Dispsoe(TimeObject target)
+			public static void Destroy(TimeObject target)
 			{
 				target.Dispose();
+			}
+			#endregion
+
+			public static void SetActive(TimeObject target, bool value)
+			{
+				throw new NotImplementedException();
 			}
 		}
 

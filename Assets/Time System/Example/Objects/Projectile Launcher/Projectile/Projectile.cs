@@ -28,8 +28,8 @@ namespace Default
 
         void OnCollisionEnter(Collision collision)
         {
-            TimeSystem.Objects.Dispose(collision.gameObject);
-            TimeSystem.Objects.Dispose(gameObject);
+            TimeSystem.Objects.TryDestroy(collision.gameObject);
+            TimeSystem.Objects.TryDestroy(gameObject);
         }
 
         void OnTimeDespawn()
