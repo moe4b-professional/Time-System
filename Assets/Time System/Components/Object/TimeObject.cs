@@ -28,13 +28,28 @@ namespace Default
 
         public List<ITimeBehaviour> Behaviours { get; protected set; }
 
-        #region Lifetime
         [SerializeField]
-        bool recordLifeTime = false;
-        public bool RecordLifeTime => recordLifeTime;
+        LifetimeProperty lifetime = default;
+        public LifetimeProperty Lifetime => lifetime;
+        [Serializable]
+        public class LifetimeProperty
+        {
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
+            [SerializeField]
+            bool record = false;
+            public bool Record => record;
 
-        public ObjectLifetimeRecorder LifeTimeRecorder { get; protected set; }
-        #endregion
+            public ObjectLifetimeRecorder Recorder { get; protected set; }
+
+            public void Initialize(TimeObject owner)
+            {
+                if (record)
+                {
+                    Recorder = new ObjectLifetimeRecorder();
+                    TimeRecorder.Load(owner, Recorder);
+                }
+            }
+        }
 
         protected virtual void Awake()
         {
@@ -47,11 +62,7 @@ namespace Default
 
         protected virtual void Start()
         {
-            if (recordLifeTime)
-            {
-                LifeTimeRecorder = new ObjectLifetimeRecorder();
-                TimeRecorder.Load(this, LifeTimeRecorder);
-            }
+            lifetime.Initialize(this);
         }
 
         /// <summary>

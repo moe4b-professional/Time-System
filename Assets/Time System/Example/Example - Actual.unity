@@ -357,7 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &65375915
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &92789803
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,7 +743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &151688973
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &251265914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &282174940
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,7 +5944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 0
+  lifetime:
+    record: 0
 --- !u!1 &401276419
 GameObject:
   m_ObjectHideFlags: 0
@@ -6081,7 +6087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &447232899
 GameObject:
   m_ObjectHideFlags: 0
@@ -6223,7 +6230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!4 &465500669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8516367590486168400, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
@@ -6475,7 +6483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &708475563
 GameObject:
   m_ObjectHideFlags: 0
@@ -6574,7 +6583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!54 &708475567
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6817,7 +6827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!54 &826352048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7079,7 +7090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &954598148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7292,7 +7304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1073754654
 GameObject:
   m_ObjectHideFlags: 0
@@ -7575,7 +7588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1242184581
 GameObject:
   m_ObjectHideFlags: 0
@@ -7717,7 +7731,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1280860671
 GameObject:
   m_ObjectHideFlags: 0
@@ -7954,7 +7969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1401012618
 GameObject:
   m_ObjectHideFlags: 0
@@ -8096,7 +8112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1463712122
 GameObject:
   m_ObjectHideFlags: 0
@@ -8270,7 +8287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1655665834
 GameObject:
   m_ObjectHideFlags: 0
@@ -8412,7 +8430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1671560990
 GameObject:
   m_ObjectHideFlags: 0
@@ -8554,7 +8573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1678729405
 GameObject:
   m_ObjectHideFlags: 0
@@ -8785,7 +8805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1829597110
 GameObject:
   m_ObjectHideFlags: 0
@@ -8970,7 +8991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1918467029
 GameObject:
   m_ObjectHideFlags: 0
@@ -9112,7 +9134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1935400901
 GameObject:
   m_ObjectHideFlags: 0
@@ -9254,7 +9277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1947977377
 GameObject:
   m_ObjectHideFlags: 0
@@ -9396,7 +9420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!1 &1977259530
 GameObject:
   m_ObjectHideFlags: 0

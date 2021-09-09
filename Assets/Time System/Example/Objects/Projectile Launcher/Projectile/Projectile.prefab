@@ -89,7 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085a237c8f8b55a43ab450e03ff3b499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordLifeTime: 1
+  lifetime:
+    record: 1
 --- !u!114 &9044049849777722707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: -7083474668178448485}
+    coordinateSource: 0
 --- !u!1 &3653615747812430079
 GameObject:
   m_ObjectHideFlags: 0

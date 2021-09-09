@@ -35,10 +35,12 @@ namespace Default
         [Serializable]
         public class BonesProperty
         {
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             bool enable = true;
             public bool Enable => enable;
 
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             UHashSet<Transform> exclusions = default;
             public UHashSet<Transform> Exclusion => exclusions;
@@ -129,10 +131,12 @@ namespace Default
         [Serializable]
         public class VariablesProperty
         {
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             bool enable = true;
             public bool Enable => enable;
 
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             UHashSet<string> exclusions = default;
             public UHashSet<string> Exclusions => exclusions;
@@ -201,10 +205,12 @@ namespace Default
         [Serializable]
         public class LayersProperty
         {
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             bool enable = true;
             public bool Enable => enable;
 
+            [ReadOnly(ReadOnlyPlayMode.PlayMode)]
             [SerializeField]
             UHashSet<string> exclusions = default;
             public UHashSet<string> Exclusions => exclusions;

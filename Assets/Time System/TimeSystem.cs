@@ -172,15 +172,25 @@ namespace Default
 
 		public static class Objects
 		{
+			/// <summary>
+			/// Destroys a GameObject with the possibility to rewind it back
+			/// if that GameObject has a TimeObject component that records its lifetime
+			/// </summary>
+			/// <param name="target"></param>
 			public static bool Dispose(GameObject target)
 			{
 				var context = target.GetComponent<TimeObject>();
 
 				if (context == null) return false;
+				if (context.Lifetime.Record == false) return false;
 
 				Dispsoe(context);
 				return true;
 			}
+			/// <summary>
+			/// Destroys an object with the possibility to rewind it back
+			/// </summary>
+			/// <param name="target"></param>
 			public static void Dispsoe(TimeObject target)
 			{
 				target.Dispose();
