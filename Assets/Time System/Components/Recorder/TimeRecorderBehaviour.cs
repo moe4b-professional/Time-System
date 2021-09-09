@@ -34,7 +34,7 @@ namespace Default
 
         protected virtual void Reset()
         {
-
+            TimeObject.EnsureOwnerFor(this);
         }
 
         protected virtual void Start()

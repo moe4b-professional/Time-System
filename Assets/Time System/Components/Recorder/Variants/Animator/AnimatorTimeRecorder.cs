@@ -184,6 +184,7 @@ namespace Default
                 for (int i = 0; i < parameters.Length; i++)
                 {
                     if (exclusions.Contains(parameters[i].name)) continue;
+                    if (animator.IsParameterControlledByCurve(parameters[i].nameHash)) continue;
                     if (parameters[i].type == UnityEngine.AnimatorControllerParameterType.Trigger) continue;
 
                     var entry = new Controller(animator, parameters[i]);

@@ -85,6 +85,11 @@ namespace Default
 
         public TimeObject TimeObject { get; set; }
 
+        void Reset()
+        {
+            TimeObject.EnsureOwnerFor(this);
+        }
+
         void Start()
         {
             Recorders = new List<TimeRecorder>(entries.Count);

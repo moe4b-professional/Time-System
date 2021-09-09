@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 5ce3921751b928f45a815f3b079299e5, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 14b521bf435f36e43b56c31aecbc7dc5, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -344,6 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 55698920}
+    coordinateSource: 0
 --- !u!114 &55698925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 65375918}
+    coordinateSource: 0
 --- !u!114 &65375923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 123033553}
+    coordinateSource: 0
 --- !u!114 &123033558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,6 +870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 151688976}
+    coordinateSource: 0
 --- !u!114 &151688981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,6 +1048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 257053756}
+    coordinateSource: 0
 --- !u!114 &257053761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6063,6 +6068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 401276421}
+    coordinateSource: 0
 --- !u!114 &401276427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6204,6 +6210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 447232902}
+    coordinateSource: 0
 --- !u!114 &447232907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6455,6 +6462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 634934098}
+    coordinateSource: 0
 --- !u!114 &634934103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7058,6 +7066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 848765857}
+    coordinateSource: 0
 --- !u!114 &848765862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7270,6 +7279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1042601554}
+    coordinateSource: 0
 --- !u!114 &1042601559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7552,6 +7562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1126696833}
+    coordinateSource: 0
 --- !u!114 &1126696838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7693,6 +7704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1242184584}
+    coordinateSource: 0
 --- !u!114 &1242184589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7929,6 +7941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1363582271}
+    coordinateSource: 0
 --- !u!114 &1363582276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8070,6 +8083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1401012621}
+    coordinateSource: 0
 --- !u!114 &1401012626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8243,6 +8257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1619044765}
+    coordinateSource: 0
 --- !u!114 &1619044770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8384,6 +8399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1655665837}
+    coordinateSource: 0
 --- !u!114 &1655665842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8525,6 +8541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1671560996}
+    coordinateSource: 0
 --- !u!114 &1671560998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8755,6 +8772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1797279567}
+    coordinateSource: 0
 --- !u!114 &1797279572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8811,9 +8829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181c4c07a57490548928f807c94ce1cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  property:
-    target: {fileID: 1829597112}
-    name: Item
 --- !u!1 &1874685982
 GameObject:
   m_ObjectHideFlags: 0
@@ -8942,6 +8957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1874685985}
+    coordinateSource: 0
 --- !u!114 &1874685990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9083,6 +9099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1918467032}
+    coordinateSource: 0
 --- !u!114 &1918467037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9224,6 +9241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1935400904}
+    coordinateSource: 0
 --- !u!114 &1935400909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9365,6 +9383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance:
     target: {fileID: 1947977380}
+    coordinateSource: 0
 --- !u!114 &1947977385
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: M Scenes Collection
   m_EditorClassIdentifier: 
   list:
-  - asset: {fileID: 102900000, guid: 4c7d51cabaeed9348ae7a64f0f1b4b6c, type: 3}
-    registered: 1
-    active: 1
-    id: Scene
-    index: 1
-    path: Assets/Scene.unity
   - asset: {fileID: 102900000, guid: 9c6c5691d4bfe0642b94685e7d4d2d13, type: 3}
     registered: 1
     active: 1
-    id: Initial
+    id: Example - Loader
     index: 0
-    path: Assets/Initial.unity
+    path: Assets/Time System/Example/Example - Loader.unity
+  - asset: {fileID: 102900000, guid: 4c7d51cabaeed9348ae7a64f0f1b4b6c, type: 3}
+    registered: 1
+    active: 1
+    id: Example - Actual
+    index: 1
+    path: Assets/Time System/Example/Example - Actual.unity

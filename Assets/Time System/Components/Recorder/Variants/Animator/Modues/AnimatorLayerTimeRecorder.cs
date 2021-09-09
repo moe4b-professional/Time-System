@@ -33,31 +33,36 @@ namespace Default
         public override void ReadSnapshot(AnimatorLayerSnapshot snapshot)
         {
             var state = Animator.GetCurrentAnimatorStateInfo(Index);
-
-            snapshot.Hash = state.fullPathHash;
+            snapshot.State = state.fullPathHash;
             snapshot.Time = state.normalizedTime;
+
+            if (Index != 0) snapshot.Weight = Animator.GetLayerWeight(Index);
         }
         public override void ApplySnapshot(AnimatorLayerSnapshot snapshot)
         {
-
+            if (Index != 0) Animator.SetLayerWeight(Index, snapshot.Weight);
         }
         public override void CopySnapshot(AnimatorLayerSnapshot source, AnimatorLayerSnapshot destination)
         {
-            destination.Hash = source.Hash;
+            destination.State = source.State;
             destination.Time = source.Time;
+
+            destination.Weight = source.Weight;
         }
 
         protected override void Resume()
         {
             base.Resume();
 
-            Animator.Play(LastSnapshot.Hash, Index, LastSnapshot.Time);
+            Animator.Play(LastSnapshot.State, Index, LastSnapshot.Time);
         }
     }
 
     public class AnimatorLayerSnapshot
     {
-        public int Hash;
+        public int State;
         public float Time;
+
+        public float Weight;
     }
 }

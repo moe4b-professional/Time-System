@@ -17,6 +17,8 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Default
 {
     [DefaultExecutionOrder(ExecutionOrder)]
@@ -89,6 +91,28 @@ namespace Default
         protected virtual void OnDestroy()
         {
             DestroyEvent?.Invoke();
+        }
+
+        //Static Utility
+
+        public static TimeObject EnsureOwnerFor(UObjectSurrogate surrogate)
+        {
+            var gameObject = surrogate.GameObject;
+
+            var target = QueryComponent.InParents<TimeObject>(gameObject);
+
+            if (target == null)
+            {
+                target = Undo.AddComponent<TimeObject>(gameObject);
+
+#if UNITY_EDITOR
+                ComponentUtility.MoveComponentUp(target);
+
+                Undo.CollapseUndoOperations(2);
+#endif
+            }
+
+            return target;
         }
     }
 

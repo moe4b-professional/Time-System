@@ -26,22 +26,48 @@ namespace Default
         Rigidbody target = default;
         public Rigidbody Target => target;
 
+        public Transform Transform => target.transform;
+
+        [SerializeField]
+        RigidbodyTimeRecorderCoordinateSource coordinateSource = RigidbodyTimeRecorderCoordinateSource.Transform;
+        public RigidbodyTimeRecorderCoordinateSource CoordinateSource => coordinateSource;
+
         public override void ReadSnapshot(RigidbodyTimeSnapshot snapshot)
         {
-            snapshot.Position = target.position;
-            snapshot.Velocity = target.velocity;
+            switch (coordinateSource)
+            {
+                case RigidbodyTimeRecorderCoordinateSource.Transform:
+                    snapshot.Position = Transform.position;
+                    snapshot.Rotation = Transform.rotation;
+                    break;
 
-            snapshot.Rotation = target.rotation;
+                case RigidbodyTimeRecorderCoordinateSource.Rigidbody:
+                    snapshot.Position = target.position;
+                    snapshot.Rotation = target.rotation;
+                    break;
+            }
+
+            snapshot.Velocity = target.velocity;
             snapshot.AngularVelocity = target.angularVelocity;
 
             snapshot.IsKinematic = target.isKinematic;
         }
         public override void ApplySnapshot(RigidbodyTimeSnapshot snapshot)
         {
-            target.position = snapshot.Position;
-            target.velocity = snapshot.Velocity;
+            switch (coordinateSource)
+            {
+                case RigidbodyTimeRecorderCoordinateSource.Transform:
+                    Transform.position = snapshot.Position;
+                    Transform.rotation = snapshot.Rotation;
+                    break;
 
-            target.rotation = snapshot.Rotation;
+                case RigidbodyTimeRecorderCoordinateSource.Rigidbody:
+                    target.position = snapshot.Position;
+                    target.rotation = snapshot.Rotation;
+                    break;
+            }
+
+            target.velocity = snapshot.Velocity;
             target.angularVelocity = snapshot.AngularVelocity;
         }
         public override void CopySnapshot(RigidbodyTimeSnapshot source, RigidbodyTimeSnapshot destination)
@@ -80,6 +106,11 @@ namespace Default
         {
             this.target = target;
         }
+    }
+
+    public enum RigidbodyTimeRecorderCoordinateSource
+    {
+        Transform, Rigidbody
     }
 
     public class RigidbodyTimeSnapshot
