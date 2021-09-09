@@ -33,10 +33,6 @@ namespace Default
         {
             target.localRotation = snapshot.Rotation;
         }
-        public override void CopySnapshot(AnimatorBoneRotationTimeSnapshot source, AnimatorBoneRotationTimeSnapshot destination)
-        {
-            destination.Rotation = source.Rotation;
-        }
 
         public AnimatorBoneRotationTimeRecorder(Transform target)
         {
@@ -63,11 +59,6 @@ namespace Default
         {
             target.localPosition = snapshot.Position;
             target.localRotation = snapshot.Rotation;
-        }
-        public override void CopySnapshot(AnimatorBoneCoordinatesTimeSnapshot source, AnimatorBoneCoordinatesTimeSnapshot destination)
-        {
-            destination.Position = source.Position;
-            destination.Rotation = source.Rotation;
         }
 
         public AnimatorBoneCoordinatesTimeRecorder(Transform target)

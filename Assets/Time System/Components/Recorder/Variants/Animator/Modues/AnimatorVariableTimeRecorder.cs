@@ -44,11 +44,6 @@ namespace Default
             Hash = Animator.StringToHash(ID);
         }
 
-        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
-        {
-            destination.Value = source.Value;
-        }
-
         public AnimatorVariableTimeRecorder(Animator context, string id)
         {
             this.context = context;

@@ -26,33 +26,47 @@ namespace Default
         Rigidbody2D target = default;
         public Rigidbody2D Target => target;
 
+        public Transform Transform => target.transform;
+
+        [SerializeField]
+        RigidbodyTimeRecorderCoordinateSource coordinateSource = RigidbodyTimeRecorderCoordinateSource.Transform;
+        public RigidbodyTimeRecorderCoordinateSource CoordinateSource => coordinateSource;
+
         public override void ReadSnapshot(Rigidbody2DTimeSnapshot snapshot)
         {
-            snapshot.Position = target.position;
+            switch (coordinateSource)
+            {
+                case RigidbodyTimeRecorderCoordinateSource.Transform:
+                    snapshot.Position = Transform.position;
+                    snapshot.Rotation = Transform.eulerAngles.z;
+                    break;
+
+                case RigidbodyTimeRecorderCoordinateSource.Rigidbody:
+                    snapshot.Position = target.position;
+                    snapshot.Rotation = target.rotation;
+                    break;
+            }
+
             snapshot.Velocity = target.velocity;
-
-            snapshot.Rotation = target.rotation;
             snapshot.AngularVelocity = target.angularVelocity;
-
-            snapshot.IsKinematic = target.isKinematic;
         }
         public override void ApplySnapshot(Rigidbody2DTimeSnapshot snapshot)
         {
-            target.position = snapshot.Position;
+            switch (coordinateSource)
+            {
+                case RigidbodyTimeRecorderCoordinateSource.Transform:
+                    Transform.position = snapshot.Position;
+                    Transform.eulerAngles = Vector3.forward * snapshot.Rotation;
+                    break;
+
+                case RigidbodyTimeRecorderCoordinateSource.Rigidbody:
+                    target.position = snapshot.Position;
+                    target.rotation = snapshot.Rotation;
+                    break;
+            }
+
             target.velocity = snapshot.Velocity;
-
-            target.rotation = snapshot.Rotation;
             target.angularVelocity = snapshot.AngularVelocity;
-        }
-        public override void CopySnapshot(Rigidbody2DTimeSnapshot source, Rigidbody2DTimeSnapshot destination)
-        {
-            destination.Position = source.Position;
-            destination.Velocity = source.Velocity;
-
-            destination.Rotation = source.Rotation;
-            destination.AngularVelocity = source.AngularVelocity;
-
-            destination.IsKinematic = source.IsKinematic;
         }
 
         protected override void Configure()
@@ -73,7 +87,7 @@ namespace Default
         {
             base.Resume();
 
-            target.isKinematic = LastSnapshot.IsKinematic;
+            target.isKinematic = false;
         }
 
         public Rigidbody2DTimeRecorder(Rigidbody2D target)
@@ -89,7 +103,5 @@ namespace Default
 
         public float Rotation;
         public float AngularVelocity;
-
-        public bool IsKinematic;
     }
 }

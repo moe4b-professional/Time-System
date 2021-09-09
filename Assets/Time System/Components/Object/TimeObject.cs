@@ -69,10 +69,17 @@ namespace Default
         /// Event invoked when despawning this object, objects will despawn if they rewound out of the timeline
         /// </summary>
         public event Action OnDespawn;
-        internal virtual void Despawn()
+        public virtual void Despawn()
         {
             OnDespawn?.Invoke();
             Destroy(TimeObjectDestroyCause.Despawn);
+        }
+
+        public delegate void SetActiveDelegate(bool active);
+        public event SetActiveDelegate OnSetActive;
+        public virtual void SetActive(bool active)
+        {
+            OnSetActive?.Invoke(active);
         }
 
         /// <summary>

@@ -34,11 +34,6 @@ namespace Default
             Animator.rootPosition = snapshot.Position;
             Animator.rootRotation = snapshot.Rotation;
         }
-        public override void CopySnapshot(AnimatorRootMotionSnapshot source, AnimatorRootMotionSnapshot destination)
-        {
-            destination.Position = source.Position;
-            destination.Rotation = source.Rotation;
-        }
 
         public AnimatorRootMotionRecorder(Animator animator)
         {

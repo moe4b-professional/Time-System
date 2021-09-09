@@ -61,10 +61,6 @@ namespace Default
 
                 if (Callback != null) Callback.OnPropertyRewind(Name);
             }
-            public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
-            {
-                destination.Value = source.Value;
-            }
 
             public Recorder(Object target, PropertyInfo property)
             {

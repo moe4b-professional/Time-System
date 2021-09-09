@@ -205,7 +205,7 @@ namespace Default
 				if (context == null) return false;
 				if (context.Lifetime.Record == false) return false;
 
-				Destroy(context);
+				Dispose(context);
 				return true;
 			}
 
@@ -213,15 +213,12 @@ namespace Default
 			/// Destroys an object with the possibility to rewind it back
 			/// </summary>
 			/// <param name="target"></param>
-			public static void Destroy(TimeObject target)
-			{
-				target.Dispose();
-			}
+			public static void Dispose(TimeObject target) => target.Dispose();
 			#endregion
 
 			public static void SetActive(TimeObject target, bool value)
 			{
-				throw new NotImplementedException();
+				target.SetActive(value);
 			}
 		}
 

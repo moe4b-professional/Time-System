@@ -23,7 +23,7 @@ using MB;
 namespace Default
 {
     [Serializable]
-    public class AnimatorTimeRecorder : TimeSnapshotRecorder<AnimatorTimeSnapshot>
+    public class AnimatorTimeRecorder : TimeRecorder
     {
         [SerializeField]
         Animator target = default;
@@ -257,19 +257,6 @@ namespace Default
 
         public AnimatorRootMotionRecorder RootMotion { get; protected set; }
 
-        public override void ReadSnapshot(AnimatorTimeSnapshot snapshot)
-        {
-            snapshot.Enabled = target.enabled;
-        }
-        public override void ApplySnapshot(AnimatorTimeSnapshot snapshot)
-        {
-
-        }
-        public override void CopySnapshot(AnimatorTimeSnapshot source, AnimatorTimeSnapshot destination)
-        {
-            destination.Enabled = source.Enabled;
-        }
-
         protected override void Configure()
         {
             base.Configure();
@@ -287,8 +274,8 @@ namespace Default
 
             if(target.applyRootMotion)
             {
-                //RootMotion = new AnimatorRootMotionRecorder(target);
-                //TimeRecorder.Load(Owner, RootMotion);
+                RootMotion = new AnimatorRootMotionRecorder(target);
+                TimeRecorder.Load(Owner, RootMotion);
             }
         }
 
@@ -302,17 +289,12 @@ namespace Default
         {
             base.Resume();
 
-            target.enabled = LastSnapshot.Enabled;
+            target.enabled = true;
         }
 
         public AnimatorTimeRecorder(Animator target)
         {
             this.target = target;
         }
-    }
-
-    public class AnimatorTimeSnapshot
-    {
-        public bool Enabled;
     }
 }

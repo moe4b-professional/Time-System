@@ -38,10 +38,6 @@ namespace Default
         {
             value = snapshot.Value;
         }
-        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
-        {
-            destination.Value = source.Value;
-        }
 
         public TimeVariable() : this(default) { }
         public TimeVariable(TValue value)
@@ -73,10 +69,6 @@ namespace Default
         public override void ApplySnapshot(TimeValueSnapshot<TValue> snapshot)
         {
             Value = snapshot.Value;
-        }
-        public override void CopySnapshot(TimeValueSnapshot<TValue> source, TimeValueSnapshot<TValue> destination)
-        {
-            destination.Value = source.Value;
         }
 
         public TimeField(GetterDelegate getter, SetterDelegate setter)

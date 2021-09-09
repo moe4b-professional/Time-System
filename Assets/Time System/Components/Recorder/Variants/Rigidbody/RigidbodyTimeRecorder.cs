@@ -49,8 +49,6 @@ namespace Default
 
             snapshot.Velocity = target.velocity;
             snapshot.AngularVelocity = target.angularVelocity;
-
-            snapshot.IsKinematic = target.isKinematic;
         }
         public override void ApplySnapshot(RigidbodyTimeSnapshot snapshot)
         {
@@ -69,16 +67,6 @@ namespace Default
 
             target.velocity = snapshot.Velocity;
             target.angularVelocity = snapshot.AngularVelocity;
-        }
-        public override void CopySnapshot(RigidbodyTimeSnapshot source, RigidbodyTimeSnapshot destination)
-        {
-            destination.Position = source.Position;
-            destination.Velocity = source.Velocity;
-
-            destination.Rotation = source.Rotation;
-            destination.AngularVelocity = source.AngularVelocity;
-
-            destination.IsKinematic = source.IsKinematic;
         }
 
         protected override void Configure()
@@ -99,7 +87,7 @@ namespace Default
         {
             base.Resume();
 
-            target.isKinematic = LastSnapshot.IsKinematic;
+            target.isKinematic = false;
         }
 
         public RigidbodyTimeRecorder(Rigidbody target)
@@ -120,7 +108,5 @@ namespace Default
 
         public Quaternion Rotation;
         public Vector3 AngularVelocity;
-
-        public bool IsKinematic;
     }
 }

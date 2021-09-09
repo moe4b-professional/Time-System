@@ -73,11 +73,6 @@ namespace Default
             target.Simulate(0, false, true);
             target.Simulate(Time, false, false);
         }
-        public override void CopySnapshot(ParticleSystemTimeSnapshot source, ParticleSystemTimeSnapshot destination)
-        {
-            destination.Time = source.Time;
-            destination.State = source.State;
-        }
 
         protected override void Pause()
         {
@@ -89,19 +84,29 @@ namespace Default
         {
             base.Resume();
 
-            switch (LastSnapshot.State)
+            if(TryGetSnapshot(TimeSystem.Frame.Index, out var snapshot) == false)
             {
-                case ParticleSystemTimeState.Paused:
-                    target.Pause();
-                    break;
+                switch (snapshot.State)
+                {
+                    case ParticleSystemTimeState.Paused:
+                        target.Pause();
+                        break;
 
-                case ParticleSystemTimeState.Playing:
+                    case ParticleSystemTimeState.Playing:
+                        target.Play();
+                        break;
+
+                    case ParticleSystemTimeState.Stopped:
+                        target.Stop();
+                        break;
+                }
+            }
+            else
+            {
+                if (target.main.playOnAwake)
                     target.Play();
-                    break;
-
-                case ParticleSystemTimeState.Stopped:
+                else
                     target.Stop();
-                    break;
             }
         }
 

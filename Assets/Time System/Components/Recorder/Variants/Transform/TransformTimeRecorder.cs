@@ -62,11 +62,6 @@ namespace Default
                     break;
             }
         }
-        public override void CopySnapshot(TransformTimeSnapshot source, TransformTimeSnapshot destination)
-        {
-            destination.Position = source.Position;
-            destination.Rotation = source.Rotation;
-        }
 
         public TransformTimeRecorder(Transform target) : this(target, Space.Self) { }
         public TransformTimeRecorder(Transform target, Space space)

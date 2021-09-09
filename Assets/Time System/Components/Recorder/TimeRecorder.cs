@@ -120,24 +120,18 @@ namespace Default
     {
         public Dictionary<int, TSnapshot> Snapshots { get; private set; }
 
-        /// <summary>
-        /// The last applied snapshot, useful for recalling conditional state
-        /// like recalling a rigidbody's velocity after it's made non kinematic
-        /// </summary>
-        protected TSnapshot LastSnapshot;
+        protected bool TryGetSnapshot(int frame, out TSnapshot snapshot) => Snapshots.TryGetValue(frame, out snapshot);
 
         protected override void Configure()
         {
             base.Configure();
 
             Snapshots = new Dictionary<int, TSnapshot>(TimeSystem.Frame.Capacity);
-
-            LastSnapshot = SnapshotPool.Lease();
         }
 
         public abstract void ReadSnapshot(TSnapshot snapshot);
         public abstract void ApplySnapshot(TSnapshot snapshot);
-        public abstract void CopySnapshot(TSnapshot source, TSnapshot destination);
+        public virtual void CopySnapshot(TSnapshot source, TSnapshot destination, bool caller) { }
 
         protected override void Record(int frame, float delta)
         {
@@ -148,48 +142,49 @@ namespace Default
             Snapshots.Add(frame, snapshot);
         }
 
-        protected override void Pause()
-        {
-            base.Pause();
-
-            ReadSnapshot(LastSnapshot);
-        }
         protected override void Resume()
         {
             base.Resume();
 
-            ApplySnapshot(LastSnapshot);
+            TryGetSnapshot(TimeSystem.Frame.Index, out var snapshot);
+            Resume(snapshot);
+        }
+        protected virtual void Resume(TSnapshot snapshot)
+        {
+            if (snapshot != null) ApplySnapshot(snapshot);
         }
 
         protected override void ApplyFrame(int frame)
         {
             base.ApplyFrame(frame);
 
-            if (Snapshots.TryGetValue(frame, out var snapshot) == false)
-            {
-                //No snapshot recorded for frame for whatever reason
-                return;
-            }
-
-            CopySnapshot(snapshot, LastSnapshot);
-            ApplySnapshot(snapshot);
+            TryGetSnapshot(frame, out var snapshot);
+            ApplyFrame(frame, snapshot);
         }
+        protected virtual void ApplyFrame(int frame, TSnapshot snapshot)
+        {
+            if (snapshot != null) ApplySnapshot(snapshot);
+        }
+
         protected override void RemoveFrame(int frame)
         {
             base.RemoveFrame(frame);
 
-            if (Snapshots.TryGetValue(frame, out var snapshot) == false) return;
-
-            SnapshotPool.Return(snapshot);
-
-            Snapshots.Remove(frame);
+            Snapshots.TryGetValue(frame, out var snapshot);
+            RemoveFrame(frame, snapshot);
+        }
+        protected virtual void RemoveFrame(int frame, TSnapshot snapshot)
+        {
+            if (snapshot != null)
+            {
+                Snapshots.Remove(frame);
+                SnapshotPool.Return(snapshot);
+            }
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-
-            SnapshotPool.Return(LastSnapshot);
 
             foreach (var snapshot in Snapshots.Values)
                 SnapshotPool.Return(snapshot);

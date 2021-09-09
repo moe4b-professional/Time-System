@@ -20,19 +20,21 @@ using Random = UnityEngine.Random;
 namespace Default
 {
     [Serializable]
-    public class ObjectLifetimeRecorder : TimeRecorder
+    public class ObjectLifetimeRecorder : TimeSnapshotRecorder<ObjectLifeTimeSnapshot>
 	{
-        public int SpawnFrame { get; protected set; }
+        public int SpawnFrame { get; private set; }
 
-        public int DisposeFrame { get; protected set; }
-        public bool IsMarkedForDisposal => DisposeFrame != int.MaxValue;
+        public int DisposeFrame { get; private set; }
+        public bool IsMarkedForDisposal => DisposeFrame > -1;
 
-        ObjectLifeTimeState CheckState(int frame)
+        ObjectLifeTimeState CheckState(ObjectLifeTimeSnapshot snapshot, int frame)
         {
             if (frame < SpawnFrame) return ObjectLifeTimeState.Despawned;
-            if (frame >= DisposeFrame) return ObjectLifeTimeState.Disposed;
+            if (IsMarkedForDisposal && frame >= DisposeFrame) return ObjectLifeTimeState.Disposed;
 
-            return ObjectLifeTimeState.Alive;
+            if (snapshot == null) return ObjectLifeTimeState.Despawned;
+
+            return snapshot.Active ? ObjectLifeTimeState.Active : ObjectLifeTimeState.UnActive;
         }
 
         public GameObject Target => Owner.gameObject;
@@ -41,14 +43,18 @@ namespace Default
         {
             base.Initialize();
 
-            //Record the frame this object was spawned in
             SpawnFrame = TimeSystem.Frame.Index;
-
-            //Record an initial value for the dispose frame
-            DisposeFrame = int.MaxValue;
+            DisposeFrame = -1;
 
             Owner.DisposeEvent += Dispose;
+            Owner.OnSetActive += SetActive;
         }
+
+        public override void ReadSnapshot(ObjectLifeTimeSnapshot snapshot)
+        {
+            snapshot.Active = Target.activeSelf;
+        }
+        public override void ApplySnapshot(ObjectLifeTimeSnapshot snapshot) { }
 
         void Dispose()
         {
@@ -57,53 +63,66 @@ namespace Default
         }
         void UnDispose()
         {
-            DisposeFrame = int.MaxValue;
-            Target.SetActive(true);
+            DisposeFrame = -1;
         }
 
-        protected override void ApplyFrame(int frame)
+        void SetActive(bool active)
         {
-            base.ApplyFrame(frame);
-
-            var state = CheckState(frame);
-
-            Target.SetActive(state == ObjectLifeTimeState.Alive);
-        }
-
-        protected override void Resume()
-        {
-            base.Resume();
-
-            var state = CheckState(TimeSystem.Frame.Index);
-
-            switch (state)
+            if (TimeSystem.IsPaused)
             {
-                case ObjectLifeTimeState.Despawned:
-                    Owner.Despawn();
-                    break;
-
-                case ObjectLifeTimeState.Alive:
-                    if (IsMarkedForDisposal) UnDispose();
-                    break;
-
-                case ObjectLifeTimeState.Disposed:
-                    //No need to do anything, object will be destroyed when it's frame is removed
-                    break;
+                Debug.LogError("Cannot Invoke SetActive when Time is Paused");
+                return;
             }
+
+            if (IsMarkedForDisposal)
+            {
+                Debug.LogError("Cannot Invoke SetActive for a Disposed Object");
+                return;
+            }
+
+            Target.SetActive(active);
+        }
+
+        protected override void ApplyFrame(int frame, ObjectLifeTimeSnapshot snapshot)
+        {
+            base.ApplyFrame(frame, snapshot);
+
+            var state = CheckState(snapshot, TimeSystem.Frame.Index);
+
+            Target.SetActive(state == ObjectLifeTimeState.Active);
+        }
+
+        protected override void Resume(ObjectLifeTimeSnapshot snapshot)
+        {
+            base.Resume(snapshot);
+
+            var state = CheckState(snapshot, TimeSystem.Frame.Index);
+
+            if (state == ObjectLifeTimeState.Despawned)
+                Owner.Despawn();
+
+            if (state != ObjectLifeTimeState.Disposed)
+                UnDispose();
         }
 
         protected override void RemoveFrame(int frame)
         {
             base.RemoveFrame(frame);
 
-            if (frame == DisposeFrame) Owner.Destroy(TimeObjectDestroyCause.Dispose);
+            if (IsMarkedForDisposal && DisposeFrame == frame) Owner.Destroy(TimeObjectDestroyCause.Dispose);
         }
     }
 
     public enum ObjectLifeTimeState
     {
         Despawned,
-        Alive,
+        Active,
+        UnActive,
         Disposed
+    }
+
+    public class ObjectLifeTimeSnapshot
+    {
+        public bool Active;
     }
 }

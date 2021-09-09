@@ -42,19 +42,12 @@ namespace Default
         {
             if (Index != 0) Animator.SetLayerWeight(Index, snapshot.Weight);
         }
-        public override void CopySnapshot(AnimatorLayerSnapshot source, AnimatorLayerSnapshot destination)
+
+        protected override void Resume(AnimatorLayerSnapshot snapshot)
         {
-            destination.State = source.State;
-            destination.Time = source.Time;
+            base.Resume(snapshot);
 
-            destination.Weight = source.Weight;
-        }
-
-        protected override void Resume()
-        {
-            base.Resume();
-
-            Animator.Play(LastSnapshot.State, Index, LastSnapshot.Time);
+            Animator.Play(snapshot.State, Index, snapshot.Time);
         }
     }
 
