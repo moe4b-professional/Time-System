@@ -74,7 +74,8 @@ namespace Default
 			public static class Capacity
 			{
 				/// <summary>
-				/// Theoritical Frame Capacity based on MaxRecordDuration, Used in Recorder's Collections
+				/// Theoritical frame capacity based on the max record duration,
+				/// used in recorder's collections to optimize their sizes
 				/// </summary>
 				public static int Prediction => (Record.MaxDuration * Rate.Predicted) + ErrorCorrection;
 
@@ -82,7 +83,7 @@ namespace Default
 				/// Extra value to add to the frame capacity prediciton to help correct for any possible floating point errors,
 				/// because allocating more space to begin with is better than having to resize and clone
 				/// </summary>
-				public const int ErrorCorrection = 30;
+				public const int ErrorCorrection = 15;
 			}
 
 			internal static void Register()
