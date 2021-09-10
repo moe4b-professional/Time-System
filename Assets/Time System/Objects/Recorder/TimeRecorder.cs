@@ -234,7 +234,7 @@ namespace MB.TimeSystem
     /// Helper class for recording a single value
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public class TimeValueSnapshot<TValue>
+    public sealed class TimeValueSnapshot<TValue>
     {
         public TValue Value;
     }
