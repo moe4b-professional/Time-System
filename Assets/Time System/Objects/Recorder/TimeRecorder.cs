@@ -139,10 +139,10 @@ namespace MB.TimeSystem
 
         protected override void Initialize()
         {
-            base.Initialize();
-
             SpawnSnapshot = SnapshotPool.Lease();
             ReadSnapshot(SpawnSnapshot);
+
+            base.Initialize();
         }
 
         public abstract void ReadSnapshot(TSnapshot snapshot);
@@ -157,18 +157,6 @@ namespace MB.TimeSystem
             Snapshots.Add(frame, snapshot);
         }
 
-        protected override void Resume()
-        {
-            base.Resume();
-
-            var snapshot = GetMostValidSnapshot(TimeSystem.Frame.Index);
-            Resume(snapshot);
-        }
-        protected virtual void Resume(TSnapshot snapshot)
-        {
-            ApplySnapshot(snapshot);
-        }
-
         protected override void ApplyFrame(int frame)
         {
             base.ApplyFrame(frame);
@@ -181,16 +169,23 @@ namespace MB.TimeSystem
             ApplySnapshot(snapshot);
         }
 
+        protected override void Resume()
+        {
+            base.Resume();
+
+            var snapshot = GetMostValidSnapshot(TimeSystem.Frame.Index);
+            Resume(snapshot);
+        }
+        protected virtual void Resume(TSnapshot snapshot)
+        {
+            ApplySnapshot(snapshot);
+        }
+
         protected override void RemoveFrame(int frame)
         {
             base.RemoveFrame(frame);
 
-            Snapshots.TryGetValue(frame, out var snapshot);
-            RemoveFrame(frame, snapshot);
-        }
-        protected virtual void RemoveFrame(int frame, TSnapshot snapshot)
-        {
-            if (snapshot != null)
+            if (Snapshots.TryGetValue(frame, out var snapshot))
             {
                 Snapshots.Remove(frame);
                 SnapshotPool.Return(snapshot);
