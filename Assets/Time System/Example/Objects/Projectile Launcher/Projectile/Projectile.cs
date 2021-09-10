@@ -17,7 +17,7 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Default
+namespace MB.TimeSystem
 {
     public class Projectile : MonoBehaviour
     {

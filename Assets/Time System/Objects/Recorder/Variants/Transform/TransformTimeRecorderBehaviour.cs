@@ -17,18 +17,15 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using MB;
-
 namespace MB.TimeSystem
 {
-    public class SceneLoader : MonoBehaviour
+    public class TransformTimeRecorderBehaviour : TimeRecorderBehaviour<TransformTimeRecorder>
     {
-        [SerializeField]
-        MSceneAsset asset;
-
-        void Start()
+        protected override void Reset()
         {
-            SceneManager.LoadScene(asset);
+            base.Reset();
+
+            instance = new TransformTimeRecorder(transform, Space.Self);
         }
     }
 }

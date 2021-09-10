@@ -17,18 +17,14 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using MB;
-
-namespace MB.TimeSystem
+namespace Default
 {
-    public class SceneLoader : MonoBehaviour
-    {
-        [SerializeField]
-        MSceneAsset asset;
-
-        void Start()
+	public class DontDestroyOnLoad : MonoBehaviour
+	{
+        void Awake()
         {
-            SceneManager.LoadScene(asset);
+            transform.parent = null;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

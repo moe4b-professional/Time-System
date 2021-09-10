@@ -17,10 +17,10 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using MB;
 using UnityEngine.PlayerLoop;
+using MB;
 
-namespace Default
+namespace MB.TimeSystem
 {
 	public static class TimeSystem
 	{
@@ -116,8 +116,10 @@ namespace Default
 			/// </summary>
 			internal static void Reset()
 			{
-				Index = 0;
+				for (int i = Min; i <= Max; i++)
+					Remove(i);
 
+				Index = 0;
 				Min = 0;
 				Max = 0;
 
@@ -130,19 +132,23 @@ namespace Default
 			/// <param name="start"></param>
 			internal static void Clear(int start)
 			{
+				if (start < Min)
+					throw new InvalidOperationException($"Cannot clear frames before the min frame of {Min}");
+
 				for (int i = start; i <= Max; i++)
-				{
 					Remove(i);
-				}
 
-				Max = start - 1;
+				Max = Math.Max(Min, start - 1);
 
-				var duration = CalculateDuration(Min, Max);
+				Duration = CalculateDuration(Min, Max);
 			}
 
 			internal static float CalculateDuration(int start, int end)
 			{
 				var value = 0f;
+
+				if (start == end)
+					return value;
 
 				for (int i = start; i <= end; i++)
 					value += DeltaTimes[i];
@@ -164,7 +170,6 @@ namespace Default
 			static Frame()
 			{
 				Index = 0;
-
 				Min = 0;
 				Max = 0;
 

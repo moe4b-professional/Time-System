@@ -17,7 +17,7 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Default
+namespace MB.TimeSystem
 {
 	public class TimeSystemControls : MonoBehaviour
 	{
@@ -33,6 +33,7 @@ namespace Default
         public static bool IsRecording => TimeSystem.IsRecording;
         public static bool IsPaused => TimeSystem.IsPaused;
 
+        [SerializeField]
         float TransitionSpeed = 3f;
         bool InTransition = false;
 
@@ -58,40 +59,11 @@ namespace Default
             {
                 if (IsRecording)
                 {
-                    StartCoroutine(Procedure());
-                    IEnumerator Procedure()
-                    {
-                        InTransition = true;
-
-                        yield return TransitionTimeScale(0f, TransitionSpeed);
-                        Time.timeScale = 1;
-
-                        TimeSystem.Pause();
-
-                        slider.maxValue = TimeSystem.Frame.Max;
-                        slider.value = TimeSystem.Frame.Index;
-                        slider.minValue = TimeSystem.Frame.Min;
-
-                        slider.gameObject.SetActive(true);
-
-                        InTransition = false;
-                    }
+                    Pause();
                 }
                 else
                 {
-                    StartCoroutine(Procedure());
-                    IEnumerator Procedure()
-                    {
-                        InTransition = true;
-
-                        slider.gameObject.SetActive(false);
-                        TimeSystem.Resume();
-
-                        Time.timeScale = 0f;
-                        yield return TransitionTimeScale(1f, TransitionSpeed);
-
-                        InTransition = false;
-                    }
+                    Resume();
                 }
             }
 
@@ -99,13 +71,11 @@ namespace Default
             {
                 if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
                 {
-                    TimeSystem.Playback.Rewind(speedModifier);
-                    slider.value = TimeSystem.Frame.Index;
+                    Rewind();
                 }
                 else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
                 {
-                    TimeSystem.Playback.Forward(speedModifier);
-                    slider.value = TimeSystem.Frame.Index;
+                    Forward();
                 }
             }
             else
@@ -115,6 +85,57 @@ namespace Default
                     SceneManager.LoadScene(gameObject.scene.buildIndex);
                 }
             }
+        }
+
+        void Pause()
+        {
+            StartCoroutine(Procedure());
+            IEnumerator Procedure()
+            {
+                InTransition = true;
+
+                yield return TransitionTimeScale(0f, TransitionSpeed);
+                Time.timeScale = 1;
+
+                TimeSystem.Pause();
+
+                slider.maxValue = TimeSystem.Frame.Max;
+                slider.value = TimeSystem.Frame.Index;
+                slider.minValue = TimeSystem.Frame.Min;
+
+                slider.gameObject.SetActive(true);
+
+                InTransition = false;
+            }
+        }
+
+        void Resume()
+        {
+            StartCoroutine(Procedure());
+            IEnumerator Procedure()
+            {
+                InTransition = true;
+
+                slider.gameObject.SetActive(false);
+                TimeSystem.Resume();
+
+                Time.timeScale = 0f;
+                yield return TransitionTimeScale(1f, TransitionSpeed);
+
+                InTransition = false;
+            }
+        }
+
+        void Forward()
+        {
+            TimeSystem.Playback.Forward(speedModifier);
+            slider.value = TimeSystem.Frame.Index;
+        }
+
+        void Rewind()
+        {
+            TimeSystem.Playback.Rewind(speedModifier);
+            slider.value = TimeSystem.Frame.Index;
         }
 
         IEnumerator TransitionTimeScale(float target, float speed)

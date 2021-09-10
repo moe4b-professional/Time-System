@@ -17,7 +17,7 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Default
+namespace MB.TimeSystem
 {
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 	public class ProjectileLauncher : MonoBehaviour
@@ -51,7 +51,7 @@ namespace Default
 
             var rigidbody = instance.GetComponent<Rigidbody>();
             var direction = (hit.point - instance.transform.position).normalized;
-            rigidbody.AddForce(direction * force, ForceMode.VelocityChange);
+            rigidbody.velocity = direction * force;
 
             index += 1;
         }

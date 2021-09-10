@@ -17,18 +17,16 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using MB;
-
 namespace MB.TimeSystem
 {
-    public class SceneLoader : MonoBehaviour
-    {
-        [SerializeField]
-        MSceneAsset asset;
-
-        void Start()
+	public class ParticleSystemTimeRecorderBehaviour : TimeRecorderBehaviour<ParticleSystemTimeRecorder>
+	{
+        protected override void Reset()
         {
-            SceneManager.LoadScene(asset);
+            base.Reset();
+
+            var target = GetComponent<ParticleSystem>();
+            instance = new ParticleSystemTimeRecorder(target);
         }
     }
 }

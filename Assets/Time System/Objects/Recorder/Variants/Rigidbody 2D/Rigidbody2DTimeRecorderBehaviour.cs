@@ -17,18 +17,16 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-using MB;
-
 namespace MB.TimeSystem
 {
-    public class SceneLoader : MonoBehaviour
+    public class Rigidbody2DTimeRecorderBehaviour : TimeRecorderBehaviour<Rigidbody2DTimeRecorder>
     {
-        [SerializeField]
-        MSceneAsset asset;
-
-        void Start()
+        protected override void Reset()
         {
-            SceneManager.LoadScene(asset);
+            base.Reset();
+
+            var target = GetComponent<Rigidbody2D>();
+            instance = new Rigidbody2DTimeRecorder(target);
         }
     }
 }
