@@ -100,11 +100,16 @@ namespace MB.TimeSystem
 			}
 
 			public static event Delegate OnRemove;
-			public static void Remove(int frame)
+			internal static void Remove(int frame)
 			{
 				DeltaTimes.Remove(frame);
 
 				OnRemove?.Invoke(frame);
+			}
+			internal static void RemoveRange(int start, int end)
+            {
+				for (int i = start; i <= end; i++)
+					Remove(i);
 			}
 
 			/// <summary>
@@ -112,8 +117,7 @@ namespace MB.TimeSystem
 			/// </summary>
 			internal static void Reset()
 			{
-				for (int i = Min; i <= Max; i++)
-					Remove(i);
+				RemoveRange(Min, Max);
 
 				Index = 0;
 				Min = 0;
@@ -131,9 +135,7 @@ namespace MB.TimeSystem
 				if (start < Min)
 					throw new InvalidOperationException($"Cannot clear frames before the min frame of {Min}");
 
-				for (int i = start; i <= Max; i++)
-					Remove(i);
-
+				RemoveRange(start, Max);
 				Max = Math.Max(Min, start - 1);
 
 				Duration = CalculateDuration(Min, Max);

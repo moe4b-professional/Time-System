@@ -117,7 +117,7 @@ namespace MB.TimeSystem
         {
             var gameObject = surrogate.GameObject;
 
-            var target = QueryComponent.InParents<TimeObject>(gameObject);
+            var target = QueryComponent.In<TimeObject>(gameObject, QueryComponentScope.Self, QueryComponentScope.Parents);
 
             if (target == null)
             {
