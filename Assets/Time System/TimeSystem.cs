@@ -99,10 +99,6 @@ namespace MB.TimeSystem
 				Max = Index;
 			}
 
-			/// <summary>
-			/// Event invoked when removing a frame from the timeline,
-			/// always guarnteed to be invoked sequentially 
-			/// </summary>
 			public static event Delegate OnRemove;
 			public static void Remove(int frame)
 			{
