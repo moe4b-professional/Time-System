@@ -166,7 +166,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab60f7480b7ad945805b13797fd7b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: Scene
+  asset:
+    asset: {fileID: 102900000, guid: 4c7d51cabaeed9348ae7a64f0f1b4b6c, type: 3}
+    registered: 1
+    active: 1
+    id: Example - Actual
+    index: 1
+    path: Assets/Time System/Example/Scenes/Example - Actual.unity
 --- !u!1 &1412421391
 GameObject:
   m_ObjectHideFlags: 0

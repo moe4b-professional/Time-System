@@ -121,9 +121,9 @@ namespace Default
 
             if (target == null)
             {
+#if UNITY_EDITOR
                 target = Undo.AddComponent<TimeObject>(gameObject);
 
-#if UNITY_EDITOR
                 ComponentUtility.MoveComponentUp(target);
 
                 Undo.CollapseUndoOperations(2);

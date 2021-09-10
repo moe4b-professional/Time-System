@@ -17,15 +17,18 @@ using UnityEditorInternal;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+using MB;
+
 namespace Default
 {
     public class SceneLoader : MonoBehaviour
     {
-        public string scene;
+        [SerializeField]
+        MSceneAsset asset;
 
         void Start()
         {
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadScene(asset);
         }
     }
 }

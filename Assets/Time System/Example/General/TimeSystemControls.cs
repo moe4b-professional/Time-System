@@ -112,10 +112,7 @@ namespace Default
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    var target = MB.QueryComponents.InGlobal<TimeObject>()
-                        .FirstOrDefault();
-
-                    target?.Dispose();
+                    SceneManager.LoadScene(gameObject.scene.buildIndex);
                 }
             }
         }
