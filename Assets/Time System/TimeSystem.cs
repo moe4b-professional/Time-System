@@ -29,144 +29,224 @@ namespace Default
 		public static bool IsRecording => State == TimeSystemState.Recording;
 		public static bool IsPaused => State == TimeSystemState.Paused;
 
-		/// <summary>
-		/// Maximum recording time in seconds
-		/// </summary>
-		public static int MaxRecordDuration { get; set; } = 30;
-
-		/// <summary>
-		/// Value used to predict FPS in worst case scenario
-		/// </summary>
-		public static int MaxFPS { get; set; } = 144;
-
-		/// <summary>
-		/// Predicted FPS for the game, will be used to optimize internals
-		/// </summary>
-		public static int PredictedFPS
-		{
-			get
-			{
-				if (Application.targetFrameRate > 0)
-					return Application.targetFrameRate;
-
-				if (QualitySettings.vSyncCount > 0)
-					return Screen.currentResolution.refreshRate;
-
-				return MaxFPS;
-			}
-		}
-
 		public static class Frame
-        {
+		{
 			public static int Index { get; internal set; }
 
-			static List<Stamp> Stamps { get; }
-			public struct Stamp
+			public static Dictionary<int, float> DeltaTimes { get; }
+
+			/// <summary>
+			/// The amount of time currently recorded in seconds
+			/// </summary>
+			public static float Duration { get; private set; }
+
+			public static int Min { get; private set; }
+			public static int Max { get; private set; }
+
+			public static class Rate
 			{
-				public int Index { get; }
-				public float Delta { get; }
+				/// <summary>
+				/// Value used to predict FPS in worst case scenario
+				/// when v-sync is off and application target frame rate is unlimited,
+				/// manually set this value to the max fps supported by your game to gain a little optimization
+				/// in the previous aforementioned cases
+				/// </summary>
+				public static int Max { get; set; } = 60;
 
-				public override string ToString() => $"Frame: {Index}, Delta: {Delta}";
-
-				public Stamp(int frame, float delta)
+				/// <summary>
+				/// Predicted FPS for the game, will be used to optimize internals
+				/// </summary>
+				public static int Predicted
 				{
-					this.Index = frame;
-					this.Delta = delta;
+					get
+					{
+						if (QualitySettings.vSyncCount > 0)
+							return Screen.currentResolution.refreshRate;
+
+						if (Application.targetFrameRate > 0)
+							return Application.targetFrameRate;
+
+						return Max;
+					}
 				}
 			}
 
-			public static Stamp Min => Stamps.FirstOrDefault();
-			public static Stamp Max => Stamps.LastOrDefault();
-
-			internal static float CalculateDuration()
+			public static class Capacity
 			{
-				var duration = 0f;
+				/// <summary>
+				/// Theoritical Frame Capacity based on MaxRecordDuration, Used in Recorder's Collections
+				/// </summary>
+				public static int Prediction => (Record.MaxDuration * Rate.Predicted) + ErrorCorrection;
 
-				for (int i = 0; i < Stamps.Count; i++)
-					duration += Stamps[i].Delta;
-
-				return duration;
+				/// <summary>
+				/// Extra value to add to the frame capacity prediciton to help correct for any possible floating point errors,
+				/// because allocating more space to begin with is better than having to resize and clone
+				/// </summary>
+				public const int ErrorCorrection = 30;
 			}
-
-			/// <summary>
-			/// Theoritical Frame Capacity based on MaxRecordDuration, Used in Recorder's Collections
-			/// </summary>
-			public static int Capacity => (MaxRecordDuration * PredictedFPS) + CapacityErrorCorrection;
-
-			/// <summary>
-			/// Extra value to add to the frame capacity to help correct for any possible floating point errors,
-			/// because allocating more space to begin with is better than having to resize and clone
-			/// </summary>
-			const int CapacityErrorCorrection = 30;
 
 			internal static void Register()
 			{
-				if (Max.Index == Index && Index > 0)
+				if (Max == Index && Index > 0)
 					throw new Exception($"Frame {Index} Already Regsitered");
 
-				var entry = new Stamp(Index, Time.unscaledDeltaTime);
-				Stamps.Add(entry);
+				var delta = Time.unscaledDeltaTime;
+
+				Duration += delta;
+				DeltaTimes.Add(Index, delta);
+
+				Max = Index;
 			}
 
+			/// <summary>
+			/// Event invoked when removing a frame from the timeline,
+			/// always guarnteed to be invoked sequentially 
+			/// </summary>
 			public static event Delegate OnRemove;
-			public static void RemoveAt(int index)
-            {
-				var frame = Stamps[index].Index;
-
-				Stamps.RemoveAt(index);
+			public static void Remove(int frame)
+			{
+				DeltaTimes.Remove(frame);
 
 				OnRemove?.Invoke(frame);
 			}
 
 			/// <summary>
-			/// Removes all regsitered frames
+			/// Resets all the recorded frames
 			/// </summary>
-			internal static void Clear() => Clear(Min.Index);
-			/// <summary>
-			/// Removes all registered frames starting from marker
-			/// </summary>
-			/// <param name="startFrame"></param>
-			internal static void Clear(int startFrame)
+			internal static void Reset()
 			{
-				var index = startFrame - Min.Index;
+				Index = 0;
 
-				for (int i = Stamps.Count; i-- > index;)
-					RemoveAt(i);
+				Min = 0;
+				Max = 0;
+
+				DeltaTimes.Clear();
+			}
+
+			/// <summary>
+			/// Clears all frames from the start value specified
+			/// </summary>
+			/// <param name="start"></param>
+			internal static void Clear(int start)
+			{
+				for (int i = start; i <= Max; i++)
+				{
+					Remove(i);
+				}
+
+				Max = start - 1;
+
+				var duration = CalculateDuration(Min, Max);
+			}
+
+			internal static float CalculateDuration(int start, int end)
+			{
+				var value = 0f;
+
+				for (int i = start; i <= end; i++)
+					value += DeltaTimes[i];
+
+				return value;
 			}
 
 			internal static void Fit(float time)
 			{
-				var duration = CalculateDuration();
-
-				while (duration > time)
+				while (Duration > time)
 				{
-					duration -= Min.Delta;
+					Duration -= DeltaTimes[Min];
 
-					RemoveAt(0);
+					Remove(Min);
+					Min += 1;
 				}
 			}
 
 			static Frame()
-            {
+			{
 				Index = 0;
-				Stamps = new List<Stamp>();
+
+				Min = 0;
+				Max = 0;
+
+				DeltaTimes = new Dictionary<int, float>();
 			}
 
 			public delegate void Delegate(int frame);
 		}
 
+		public static class Record
+		{
+			/// <summary>
+			/// Maximum recording time in seconds
+			/// </summary>
+			public static int MaxDuration { get; set; } = 30;
+
+			public delegate void TickDelegate(int frame, float delta);
+			public static event TickDelegate OnTick;
+			internal static void Tick()
+			{
+				Frame.Register();
+				Frame.Fit(MaxDuration);
+
+				OnTick?.Invoke(Frame.Index, Time.deltaTime);
+
+				Frame.Index += 1;
+			}
+		}
+
+		public static class Playback
+		{
+			public static bool Rewind() => Rewind(1);
+			public static bool Rewind(int steps)
+			{
+				var destination = Frame.Index - steps;
+
+				return Seek(destination);
+			}
+
+			public static event Frame.Delegate OnSeek;
+			/// <summary>
+			/// Moves the timeline to the current frame
+			/// </summary>
+			/// <param name="destination"></param>
+			public static bool Seek(int destination)
+			{
+				if (IsRecording)
+				{
+					Debug.LogError("Cannot Seek while Recording");
+					return false;
+				}
+
+				if (destination == Frame.Index) return true;
+
+				if (destination > Frame.Max) return false;
+				if (destination < Frame.Min) return false;
+
+				Frame.Index = destination;
+				OnSeek?.Invoke(Frame.Index);
+				return true;
+			}
+
+			public static bool Forward() => Forward(1);
+			public static bool Forward(int steps)
+			{
+				var destination = Frame.Index + steps;
+
+				return Seek(destination);
+			}
+		}
+
 		public static class Scenes
-        {
-			public static bool ClearOnLoad { get; set; } = true;
+		{
+			public static bool ResetOnLoad { get; set; } = true;
 
 			internal static void Configure()
-            {
+			{
 				SceneManager.sceneLoaded += LoadCalback;
 			}
 
 			static void LoadCalback(Scene scene, LoadSceneMode mode)
 			{
-				if (ClearOnLoad && mode == LoadSceneMode.Single) Clear();
+				if (ResetOnLoad && mode == LoadSceneMode.Single) Reset();
 			}
 		}
 
@@ -222,51 +302,9 @@ namespace Default
 			}
 		}
 
-		public static class Playback
-		{
-			public static bool Rewind() => Rewind(1);
-			public static bool Rewind(int steps)
-			{
-				var destination = Frame.Index - steps;
-
-				return Seek(destination);
-			}
-
-			public static event Frame.Delegate OnSeek;
-			/// <summary>
-			/// Moves the timeline to the current frame
-			/// </summary>
-			/// <param name="destination"></param>
-			public static bool Seek(int destination)
-			{
-				if (IsRecording)
-				{
-					Debug.LogError("Cannot Seek while Recording");
-					return false;
-				}
-
-				if (destination == Frame.Index) return true;
-
-				if (destination > Frame.Max.Index) return false;
-				if (destination < Frame.Min.Index) return false;
-
-				Frame.Index = destination;
-				OnSeek?.Invoke(Frame.Index);
-				return true;
-			}
-
-			public static bool Forward() => Forward(1);
-			public static bool Forward(int steps)
-			{
-				var destination = Frame.Index + steps;
-
-				return Seek(destination);
-			}
-		}
-
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		static void OnLoad()
-        {
+		{
 			State = TimeSystemState.Recording;
 
 			MUtility.RegisterPlayerLoop<PostLateUpdate>(Process);
@@ -274,21 +312,9 @@ namespace Default
 			Scenes.Configure();
 		}
 
-        static void Process()
+		static void Process()
 		{
-			if (IsRecording) Record();
-		}
-
-		public delegate void RecordDelegate(int frame, float delta);
-		public static event RecordDelegate OnRecord;
-		static void Record()
-		{
-			Frame.Register();
-			Frame.Fit(MaxRecordDuration);
-
-			OnRecord?.Invoke(Frame.Index, Time.deltaTime);
-
-			Frame.Index += 1;
+			if (IsRecording) Record.Tick();
 		}
 
 		public static event Action OnPause;
@@ -321,14 +347,17 @@ namespace Default
 			Frame.Clear(Frame.Index);
 		}
 
-		public static void Clear()
+		/// <summary>
+		/// Resets the TimeSystem
+		/// </summary>
+		public static void Reset()
 		{
-			Frame.Clear();
+			Frame.Reset();
 		}
 	}
 
 	public enum TimeSystemState
-    {
+	{
 		Recording, Paused
-    }
+	}
 }

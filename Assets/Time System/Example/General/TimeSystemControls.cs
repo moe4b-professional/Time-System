@@ -38,12 +38,12 @@ namespace Default
 
         void OnValidate()
         {
-            TimeSystem.MaxRecordDuration = maxRecordDuration;
+            TimeSystem.Record.MaxDuration = maxRecordDuration;
         }
 
         void Start()
         {
-            TimeSystem.MaxRecordDuration = maxRecordDuration;
+            TimeSystem.Record.MaxDuration = maxRecordDuration;
 
             slider.wholeNumbers = true;
             slider.onValueChanged.AddListener(SliderValueChange);
@@ -68,9 +68,9 @@ namespace Default
 
                         TimeSystem.Pause();
 
-                        slider.maxValue = TimeSystem.Frame.Max.Index;
+                        slider.maxValue = TimeSystem.Frame.Max;
                         slider.value = TimeSystem.Frame.Index;
-                        slider.minValue = TimeSystem.Frame.Min.Index;
+                        slider.minValue = TimeSystem.Frame.Min;
 
                         slider.gameObject.SetActive(true);
 

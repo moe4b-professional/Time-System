@@ -45,7 +45,7 @@ namespace Default
         {
             if (TimeSystem.IsPaused) Pause();
 
-            TimeSystem.OnRecord += Record;
+            TimeSystem.Record.OnTick += Record;
 
             TimeSystem.OnPause += Pause;
             TimeSystem.OnResume += Resume;
@@ -82,7 +82,7 @@ namespace Default
 
         protected virtual void OnDestroy()
         {
-            TimeSystem.OnRecord -= Record;
+            TimeSystem.Record.OnTick -= Record;
 
             TimeSystem.OnPause -= Pause;
             TimeSystem.OnResume -= Resume;
@@ -126,7 +126,7 @@ namespace Default
         {
             base.Configure();
 
-            Snapshots = new Dictionary<int, TSnapshot>(TimeSystem.Frame.Capacity);
+            Snapshots = new Dictionary<int, TSnapshot>(TimeSystem.Frame.Capacity.Prediction);
         }
 
         public abstract void ReadSnapshot(TSnapshot snapshot);
@@ -213,7 +213,7 @@ namespace Default
 
             static SnapshotPool()
             {
-                Queue = new Queue<TSnapshot>(TimeSystem.Frame.Capacity);
+                Queue = new Queue<TSnapshot>(TimeSystem.Frame.Capacity.Prediction);
             }
         }
     }
