@@ -6563,14 +6563,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entries:
-  - target: {fileID: 708475567}
-    name: angularVelocity
-  - target: {fileID: 708475567}
+  - target: {fileID: 708475571}
     name: position
+  - target: {fileID: 708475571}
+    name: rotation
   - target: {fileID: 708475567}
     name: velocity
   - target: {fileID: 708475567}
-    name: rotation
+    name: angularVelocity
 --- !u!114 &708475566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6807,12 +6807,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entries:
-  - target: {fileID: 826352048}
+  - target: {fileID: 826352045}
     name: position
+  - target: {fileID: 826352045}
+    name: rotation
   - target: {fileID: 826352048}
     name: velocity
-  - target: {fileID: 826352048}
-    name: rotation
   - target: {fileID: 826352048}
     name: angularVelocity
 --- !u!114 &826352047
