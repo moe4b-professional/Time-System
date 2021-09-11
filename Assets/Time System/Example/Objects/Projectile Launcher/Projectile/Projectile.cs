@@ -23,7 +23,12 @@ namespace MB.TimeSystem
     {
         void Awake()
         {
-            GetComponent<TimeObject>().OnDespawn += OnTimeDespawn;
+            var timeObject = GetComponent<TimeObject>();
+
+            if (timeObject.Lifetime.Record)
+                timeObject.Lifetime.Recorder.OnDespawn += OnTimeDespawn;
+            else
+                Debug.LogWarning($"Projectile TimeObject not set to Record Lifetime");
         }
 
         void OnCollisionEnter(Collision collision)

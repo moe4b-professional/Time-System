@@ -289,8 +289,7 @@ namespace MB.TimeSystem
 				if (context == null) return false;
 				if (context.Lifetime.Record == false) return false;
 
-				Dispose(context);
-				return true;
+				return Dispose(context);
 			}
 			#endregion
 
@@ -298,7 +297,7 @@ namespace MB.TimeSystem
 			/// Destroys an object with the possibility to rewind it back
 			/// </summary>
 			/// <param name="target"></param>
-			public static void Dispose(TimeObject target) => target.Dispose();
+			public static bool Dispose(TimeObject target) => target.Lifetime.Dispose();
 		}
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]

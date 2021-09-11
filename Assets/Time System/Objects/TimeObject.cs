@@ -41,7 +41,7 @@ namespace MB.TimeSystem
 
             public ObjectLifetimeRecorder Recorder { get; protected set; }
 
-            public void Initialize(TimeObject owner)
+            public void Configure(TimeObject owner)
             {
                 if (record)
                 {
@@ -49,52 +49,26 @@ namespace MB.TimeSystem
                     TimeRecorder.Load(owner, Recorder);
                 }
             }
+
+            public bool Dispose()
+            {
+                if (record == false)
+                    return false;
+
+                Recorder.Dispose();
+                return true;
+            }
         }
 
         protected virtual void Awake()
         {
+            lifetime.Configure(this);
+
             Behaviours = new List<ITimeBehaviour>();
             GetComponentsInChildren(true, Behaviours);
 
             for (int i = 0; i < Behaviours.Count; i++)
                 Behaviours[i].TimeObject = this;
-        }
-
-        protected virtual void Start()
-        {
-            lifetime.Initialize(this);
-        }
-
-        /// <summary>
-        /// Event invoked when despawning this object, objects will despawn if they rewound out of the timeline
-        /// </summary>
-        public event Action OnDespawn;
-        public virtual void Despawn()
-        {
-            OnDespawn?.Invoke();
-            Release(TimeObjectReleaseCause.Despawned);
-        }
-
-        /// <summary>
-        /// Event invoked when disposing of the TimeObject,
-        /// acts as if the object was destroyed but with the possibility of reversing the destruction
-        /// </summary>
-        public event Action DisposeEvent;
-        internal virtual void Dispose()
-        {
-            DisposeEvent?.Invoke();
-        }
-
-        /// <summary>
-        /// Handler for Object release, invoked for releasing objects that are despawned or disposed,
-        /// will destroy object by default,
-        /// can be used to pool the object instead of having it destroyed
-        /// </summary>
-        public ReleaseDelegate ReleaseMethod { get; set; } = (target, cause) => Object.Destroy(target);
-        public delegate void ReleaseDelegate(GameObject gameObject, TimeObjectReleaseCause cause);
-        internal virtual void Release(TimeObjectReleaseCause cause)
-        {
-            ReleaseMethod(gameObject, cause);
         }
 
         /// <summary>
