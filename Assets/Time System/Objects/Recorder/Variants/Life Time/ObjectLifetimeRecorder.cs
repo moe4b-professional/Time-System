@@ -47,7 +47,6 @@ namespace MB.TimeSystem
             DisposeFrame = -1;
 
             Owner.DisposeEvent += Dispose;
-            Owner.OnSetActive += SetActive;
         }
 
         public override void ReadSnapshot(ObjectLifeTimeSnapshot snapshot)
@@ -71,23 +70,6 @@ namespace MB.TimeSystem
             DisposeFrame = -1;
         }
 
-        void SetActive(bool active)
-        {
-            if (TimeSystem.IsPaused)
-            {
-                Debug.LogError("Cannot Invoke SetActive when Time is Paused");
-                return;
-            }
-
-            if (IsMarkedForDisposal)
-            {
-                Debug.LogError("Cannot Invoke SetActive for a Disposed Object");
-                return;
-            }
-
-            Target.SetActive(active);
-        }
-
         protected override void Resume(ObjectLifeTimeSnapshot snapshot)
         {
             base.Resume(snapshot);
@@ -105,7 +87,7 @@ namespace MB.TimeSystem
         {
             base.RemoveFrame(frame);
 
-            if (IsMarkedForDisposal && DisposeFrame == frame) Owner.Destroy(TimeObjectDestroyCause.Dispose);
+            if (IsMarkedForDisposal && DisposeFrame == frame) Owner.Release(TimeObjectReleaseCause.Disposed);
         }
     }
 

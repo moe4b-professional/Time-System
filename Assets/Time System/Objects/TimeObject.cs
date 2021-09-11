@@ -72,14 +72,7 @@ namespace MB.TimeSystem
         public virtual void Despawn()
         {
             OnDespawn?.Invoke();
-            Destroy(TimeObjectDestroyCause.Despawn);
-        }
-
-        public delegate void SetActiveDelegate(bool active);
-        public event SetActiveDelegate OnSetActive;
-        public virtual void SetActive(bool active)
-        {
-            OnSetActive?.Invoke(active);
+            Release(TimeObjectReleaseCause.Despawned);
         }
 
         /// <summary>
@@ -93,13 +86,15 @@ namespace MB.TimeSystem
         }
 
         /// <summary>
-        /// Handler for Object destruction, can be used to pool the object instead of having it garbage collected
+        /// Handler for Object release, invoked for releasing objects that are despawned or disposed,
+        /// will destroy object by default,
+        /// can be used to pool the object instead of having it destroyed
         /// </summary>
-        public DestroyDelegate DestroyMethod { get; set; } = (target, cause) => Object.Destroy(target);
-        public delegate void DestroyDelegate(GameObject gameObject, TimeObjectDestroyCause cause);
-        internal virtual void Destroy(TimeObjectDestroyCause cause)
+        public ReleaseDelegate ReleaseMethod { get; set; } = (target, cause) => Object.Destroy(target);
+        public delegate void ReleaseDelegate(GameObject gameObject, TimeObjectReleaseCause cause);
+        internal virtual void Release(TimeObjectReleaseCause cause)
         {
-            DestroyMethod(gameObject, cause);
+            ReleaseMethod(gameObject, cause);
         }
 
         /// <summary>
@@ -134,16 +129,16 @@ namespace MB.TimeSystem
         }
     }
 
-    public enum TimeObjectDestroyCause
+    public enum TimeObjectReleaseCause
     {
         /// <summary>
         /// Object got rewound out of the timeline
         /// </summary>
-        Despawn,
+        Despawned,
 
         /// <summary>
         /// Object was disposed out of the timeline
         /// </summary>
-        Dispose,
+        Disposed,
     }
 }

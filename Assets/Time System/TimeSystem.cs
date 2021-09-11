@@ -292,18 +292,13 @@ namespace MB.TimeSystem
 				Dispose(context);
 				return true;
 			}
+			#endregion
 
 			/// <summary>
 			/// Destroys an object with the possibility to rewind it back
 			/// </summary>
 			/// <param name="target"></param>
 			public static void Dispose(TimeObject target) => target.Dispose();
-			#endregion
-
-			public static void SetActive(TimeObject target, bool value)
-			{
-				target.SetActive(value);
-			}
 		}
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
