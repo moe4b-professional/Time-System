@@ -70,6 +70,12 @@ namespace MB.TimeSystem
 
             public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
             {
+                if (property.hasMultipleDifferentValues)
+                {
+                    EditorGUI.LabelField(rect, $"Multi-Object Editing not Supported");
+                    return;
+                }
+
                 var target = GetTargetProperty(property);
                 var name = GetNameProperty(property);
 

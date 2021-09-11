@@ -7170,6 +7170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 958354878}
   - component: {fileID: 958354879}
+  - component: {fileID: 958354880}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -7289,6 +7290,20 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &958354880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958354877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615c9bebef6e7584296763a7b1c21e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance:
+    target: {fileID: 958354879}
 --- !u!4 &1040778046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7119062196963498946, guid: f664ae41eb7e49b44838108f60fe24c6, type: 3}
@@ -7732,6 +7747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185064783}
   - component: {fileID: 1185064784}
+  - component: {fileID: 1185064785}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -7851,6 +7867,20 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &1185064785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185064782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615c9bebef6e7584296763a7b1c21e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance:
+    target: {fileID: 1185064784}
 --- !u!1 &1242184581
 GameObject:
   m_ObjectHideFlags: 0
