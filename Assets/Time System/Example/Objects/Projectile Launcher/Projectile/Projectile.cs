@@ -19,14 +19,14 @@ using Random = UnityEngine.Random;
 
 namespace MB.TimeSystem
 {
-    public class Projectile : MonoBehaviour
+    public class Projectile : MonoBehaviour, ITimeBehaviour
     {
+        public TimeObject TimeObject { get; set; }
+
         void Awake()
         {
-            var timeObject = GetComponent<TimeObject>();
-
-            if (timeObject.Lifetime.Record)
-                timeObject.Lifetime.Recorder.OnDespawn += OnTimeDespawn;
+            if (TimeObject.Lifetime.Record)
+                TimeObject.Lifetime.Recorder.OnDespawn += OnTimeDespawn;
             else
                 Debug.LogWarning($"Projectile TimeObject not set to Record Lifetime");
         }
